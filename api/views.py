@@ -3,7 +3,10 @@ from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.contrib.auth import logout
+from django.http import JsonResponse
 
+#endpoint od zalogowania się
 @csrf_exempt
 def login_view(request):
     if request.method == "POST":
@@ -33,3 +36,10 @@ def login_view(request):
             return JsonResponse({'error': str(e)}, status=500)
 
     return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
+
+# endpoint od wylogowania się
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({'message': 'Logged out successfully'}, status=200)
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
