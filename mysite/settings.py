@@ -9,8 +9,15 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-import os.path
+import os.path, os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
+
+print("NAME:", os.getenv("NAME"))
+print("USER:", os.getenv("USER"))
+print("PASSWORD:", os.getenv("PASSWORD"))
+print("HOST:", os.getenv("HOST"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -76,8 +83,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': os.getenv("NAME"),  # np. mydbserver.example.com/orclpdb1
+        'USER': os.getenv("USER"),
+        'PASSWORD': os.getenv("PASSWORD"),
+        'HOST': os.getenv("HOST"),
+        'PORT': '1521',  # Domyślny port Oracle
     }
 }
 
