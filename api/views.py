@@ -9,8 +9,23 @@ from .serializers import UserSerializer
 from .models import CustomUser
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from .models import Product
+from .serializers import ProductSerializer
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 class UserView(generics.ListCreateAPIView):
     queryset = CustomUser.objects.raw('SELECT * FROM USERS')
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
+
+class ProductListView(APIView):
+    # Brak wymaganych uprawnień — widok dostępny dla wszystkich
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        # Pobranie wszystkich produktów z tabeli PRODUCTS
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)

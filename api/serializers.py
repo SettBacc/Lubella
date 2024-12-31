@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser
+from .models import Product
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,3 +14,10 @@ class UserSerializer(serializers.ModelSerializer):
             password = validated_data['password'],
         )
         return user
+
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['product_id', 'category', 'type', 'weight', 'price']
