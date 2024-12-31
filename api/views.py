@@ -14,6 +14,8 @@ from .serializers import ProductSerializer, StorageSerializer, CompositionSerial
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from django.shortcuts import render
+
 class UserView(generics.ListCreateAPIView):
     queryset = CustomUser.objects.raw('SELECT * FROM USERS')
     serializer_class = UserSerializer
@@ -46,3 +48,6 @@ class CompositionListView(APIView):
         compositions = Composition.objects.select_related('product_id').all()  # Optymalizacja: JOIN na tabeli Products
         serializer = CompositionSerializer(compositions, many=True)
         return Response(serializer.data)
+
+def index(request):
+    return render(request, 'index.html')
