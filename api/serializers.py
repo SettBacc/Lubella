@@ -4,6 +4,7 @@ from .models import Product
 from .models import Storage
 from .models import Composition
 from .models import Orders
+from .models import WorkingDay
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,3 +42,8 @@ class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
         fields = ['order_id', 'user_id', 'order_date', 'number_of_pallets', 'pallet_id', 'order_status']
+
+class WorkingDaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkingDay
+        fields = ['shift_work_id', 'work_date', 'shift_nr', 'workers', 'made_pallets', 'pallet_id']
