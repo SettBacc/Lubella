@@ -6,11 +6,11 @@ import json
 from django.contrib.auth import logout
 from django.http import JsonResponse
 from .serializers import UserSerializer
-from .models import CustomUser, Storage, Composition
+from .models import CustomUser, Storage, Composition, Orders
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Product, Storage
-from .serializers import ProductSerializer, StorageSerializer, CompositionSerializer
+from .models import Product, Storage, Orders
+from .serializers import ProductSerializer, StorageSerializer, CompositionSerializer, OrdersSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -47,6 +47,13 @@ class CompositionListView(APIView):
     def get(self, request):
         compositions = Composition.objects.select_related('product_id').all()  # Optymalizacja: JOIN na tabeli Products
         serializer = CompositionSerializer(compositions, many=True)
+        return Response(serializer.data)
+
+class OrdersListView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        orders = Orders.objects.all()
+        serializer = OrdersSerializer(orders, many=True)
         return Response(serializer.data)
 
 def index(request):

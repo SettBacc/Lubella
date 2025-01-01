@@ -65,3 +65,14 @@ class Composition(models.Model):
         unique_together = ('pallet_id', 'product_id')  # Definicja unikalności dla dwóch pól
     def __str__(self):
         return f"Pallet {self.pallet_id}: {self.number_of_products} of {self.product_id}"
+
+class Orders(models.Model):
+    order_id = models.BigAutoField(primary_key=True, db_column='ORDER_ID')  # Primary Key
+    user_id = models.DecimalField(max_digits=38, decimal_places=0, db_column='USER_ID')  # NUMBER(38,0)
+    order_date = models.DateField(db_column='ORDER_DATE')  # DATE
+    number_of_pallets = models.DecimalField(max_digits=38, decimal_places=0, db_column='NUMBER_OF_PALLETS')  # NUMBER(38,0)
+    pallet_id = models.DecimalField(max_digits=38, decimal_places=0, db_column='PALLET_ID')  # NUMBER(38,0)
+    order_status = models.CharField(max_length=30, db_column='ORDER_STATUS')  # VARCHAR2(30 BYTE)
+
+    class Meta:
+        db_table = 'ORDERS'  # Odniesienie do tabeli w bazie Oracle

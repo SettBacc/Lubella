@@ -3,6 +3,7 @@ from .models import CustomUser
 from .models import Product
 from .models import Storage
 from .models import Composition
+from .models import Orders
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,3 +36,8 @@ class CompositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Composition
         fields = ['pallet_id', 'product_id', 'number_of_products']  # Zamień `product_id` na pełne dane
+
+class OrdersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orders
+        fields = ['order_id', 'user_id', 'order_date', 'number_of_pallets', 'pallet_id', 'order_status']
