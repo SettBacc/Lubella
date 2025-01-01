@@ -33,3 +33,35 @@ class CustomUser(AbstractBaseUser):
     @property
     def id(self):
         return self.user_id
+
+class Product(models.Model):
+    product_id = models.BigAutoField(primary_key=True, db_column='PRODUCT_ID')  # Primary Key
+    category = models.CharField(max_length=20, db_column='CATEGORY')  # VARCHAR2(20)
+    type = models.CharField(max_length=15, db_column='TYPE')  # VARCHAR2(15)
+    weight = models.IntegerField(db_column='WEIGHT')  # INTEGER
+    price = models.DecimalField(max_digits=5, decimal_places=2, db_column='PRICE')  # NUMBER(3,2)
+
+    class Meta:
+        db_table = 'PRODUCTS'  # Odniesienie do tabeli w bazie Oracle
+
+class Storage(models.Model):
+    pallet_id = models.BigAutoField(primary_key=True, db_column='PALLET_ID')  # Primary Key
+    number_of_pallets = models.IntegerField(db_column='NUMBER_OF_PALLETS')  # INTIGER
+    standard = models.IntegerField(db_column='STANDARD')  # INTIGER
+
+    class Meta:
+        db_table = 'STORAGE'  # Odniesienie do tabeli w bazie Oracle
+
+class Composition(models.Model):
+    #PK_id = models.IntegerField(primary_key=True)
+    pallet_id = models.IntegerField(primary_key=True, unique=False, db_column='PALLET_ID')  # Klucz obcy do `Storage`
+    product_id = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='compositions', db_column='PRODUCT_ID')  # Klucz obcy do `Products`
+    number_of_products = models.IntegerField()
+
+    class Meta:
+        managed = False  # Ustawienie na False oznacza, że Django nie będzie próbowało zarządzać schematem tabeli
+        db_table = 'COMPOSITION'
+        ordering = ['pallet_id']  # Sortowanie po `pallet_id`
+        unique_together = ('pallet_id', 'product_id')  # Definicja unikalności dla dwóch pól
+    def __str__(self):
+        return f"Pallet {self.pallet_id}: {self.number_of_products} of {self.product_id}"

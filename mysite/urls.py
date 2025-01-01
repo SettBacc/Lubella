@@ -15,14 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 #from api.views import login_view, logout_view
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from api.views import UserView
-
+from api.views import ProductListView
+from api.views import StorageListView
+from api.views import CompositionListView
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('api.urls')),  # Połącz URLs z aplikacji, pliki (front_endu, html,css,js)
+
     path("login/", TokenObtainPairView.as_view(), name="token_get"),
     path("logout/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("reg/", UserView.as_view())
+    path("reg/", UserView.as_view()),
+
+    path('products/', ProductListView.as_view(), name='product_list'),  # URL rest framework dla produktów
+    path('storage/', StorageListView.as_view(), name='storage_list'),   # URL rest framework dla magazynu
+    path('composition/', CompositionListView.as_view(), name='composition_list'),   # URL rest framework dla składu palet
 ]
