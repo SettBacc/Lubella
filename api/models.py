@@ -17,7 +17,7 @@ class CustomUserManager(BaseUserManager):
         return user
 
 class CustomUser(AbstractBaseUser):
-    user_id = models.BigAutoField(primary_key=True, db_column='USER_ID')  # Zmiana nazwy głównego klucza
+    id = models.BigAutoField(primary_key=True, db_column='ID')  # Zmiana nazwy głównego klucza
     login = models.CharField(max_length=150, unique=True, default="login")
     company_name = models.CharField(max_length=30, db_column='COMPANY_NAME')
     country = models.CharField(max_length=15, db_column='COUNTRY')
@@ -33,10 +33,12 @@ class CustomUser(AbstractBaseUser):
 
     def __str__(self):
         return self.login
-
+'''
     @property
     def id(self):
         return self.user_id
+'''
+
 
 class Product(models.Model):
     product_id = models.BigAutoField(primary_key=True, db_column='PRODUCT_ID')  # Primary Key
@@ -73,7 +75,7 @@ class Composition(models.Model):
 class Orders(models.Model):
 
     order_id = models.BigAutoField(primary_key=True, db_column='ORDER_ID')  # Primary Key
-    user_id = models.DecimalField(max_digits=38, decimal_places=0, db_column='USER_ID')  # NUMBER(38,0)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='orders', db_column='ID')
     order_date = models.DateField(db_column='ORDER_DATE')  # DATE
     number_of_pallets = models.DecimalField(max_digits=38, decimal_places=0, db_column='NUMBER_OF_PALLETS')  # NUMBER(38,0)
     pallet_id = models.DecimalField(max_digits=38, decimal_places=0, db_column='PALLET_ID')  # NUMBER(38,0)
@@ -81,7 +83,6 @@ class Orders(models.Model):
 
     class Meta:
         db_table = 'ORDERS'  # Odniesienie do tabeli w bazie Oracle
-
 
 class WorkingDay(models.Model):
     shift_work_id = models.BigAutoField(primary_key=True, db_column='SHIFT_WORK_ID')  # Primary Key

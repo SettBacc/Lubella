@@ -1,4 +1,6 @@
 # views.py
+from telnetlib import AUTHENTICATION
+
 from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -14,6 +16,8 @@ from .serializers import ProductSerializer, StorageSerializer, CompositionSerial
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import WorkingDayForm
+
+
 
 from django.shortcuts import render, redirect
 
@@ -49,7 +53,7 @@ class CompositionListView(APIView):
         compositions = Composition.objects.select_related('product_id').all()  # Optymalizacja: JOIN na tabeli Products
         serializer = CompositionSerializer(compositions, many=True)
         return Response(serializer.data)
-
+'''
 class OrdersListView(APIView):
     # Brak wymaganych uprawnień — widok dostępny dla wszystkich
     permission_classes = [AllowAny]
@@ -57,6 +61,21 @@ class OrdersListView(APIView):
     # Pobranie wszystkich produktów z tabeli ORDERS
     def get(self, request):
         orders = Orders.objects.all()
+        serializer = OrdersSerializer(orders, many=True)
+        return Response(serializer.data)
+'''
+
+
+class OrdersListView(APIView):
+    # Brak wymaganych uprawnień — widok dostępny dla wszystkich
+    permission_classes = [IsAuthenticated]
+
+    # Pobranie wszystkich produktów z tabeli ORDERS
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return Response({"error": "User is not authenticated"}, status=403)
+
+        orders = Orders.objects.filter(user=request.user)
         serializer = OrdersSerializer(orders, many=True)
         return Response(serializer.data)
 
