@@ -1,4 +1,16 @@
-<form id="register-form" method="POST" action="http://127.0.0.1:8000/reg/">
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/script.js' %}" defer></script>
+</head>
+<body>
+<div>
+<form id="register-form" method="POST">
     {% csrf_token %}
     <label for="login">Login:</label>
     <input type="text" id="login" name="login" required>
@@ -21,4 +33,14 @@
     </br>
 
     <button type="submit">Zarejestruj się</button>
+
 </form>
+
+    <div>
+        <a href="{% url 'index' %}">
+            <button>Powrót</button>
+        </a>
+    </div>
+</div>
+</body>
+</html>

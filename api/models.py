@@ -71,6 +71,7 @@ class Composition(models.Model):
         return f"Pallet {self.pallet_id}: {self.number_of_products} of {self.product_id}"
 
 class Orders(models.Model):
+
     order_id = models.BigAutoField(primary_key=True, db_column='ORDER_ID')  # Primary Key
     user_id = models.DecimalField(max_digits=38, decimal_places=0, db_column='USER_ID')  # NUMBER(38,0)
     order_date = models.DateField(db_column='ORDER_DATE')  # DATE
@@ -80,6 +81,7 @@ class Orders(models.Model):
 
     class Meta:
         db_table = 'ORDERS'  # Odniesienie do tabeli w bazie Oracle
+
 
 class WorkingDay(models.Model):
     shift_work_id = models.BigAutoField(primary_key=True, db_column='SHIFT_WORK_ID')  # Primary Key
