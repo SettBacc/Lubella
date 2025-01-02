@@ -135,3 +135,18 @@ def add_working_day(request):
 
 def reg(request):
     return render(request, 'registration.html')
+
+def product_list(request):
+    # Pobranie wszystkich rekordów `Composition` z grupowaniem według `pallet_id`
+    compositions = Composition.objects.all().select_related('product_id')
+
+    # Grupowanie danych według `pallet_id`
+    grouped_compositions = {}
+    for comp in compositions:
+        if comp.pallet_id not in grouped_compositions:
+            grouped_compositions[comp.pallet_id] = []
+        grouped_compositions[comp.pallet_id].append(comp)
+
+    # Przekazanie danych do szablonu
+    return render(request, 'product_list.html', {'grouped_compositions': grouped_compositions})
+
