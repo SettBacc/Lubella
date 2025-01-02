@@ -5,6 +5,7 @@ from .models import Storage
 from .models import Composition
 from .models import Orders
 from .models import WorkingDay
+from django import forms
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,3 +50,4 @@ class WorkingDaySerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkingDay
         fields = ['shift_work_id', 'work_date', 'shift_nr', 'workers', 'made_pallets', 'pallet_id']
+

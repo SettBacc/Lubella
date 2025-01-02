@@ -86,7 +86,7 @@ class WorkingDay(models.Model):
     work_date = models.DateField(db_column='WORK_DATE')  # DATE
     shift_nr = models.DecimalField(max_digits=1, decimal_places=0, db_column='SHIFT_NR')  # NUMBER(1,0)
     workers = models.DecimalField(max_digits=38, decimal_places=0, db_column='WORKERS')  # NUMBER(38,0)
-    made_pallets = models.DecimalField(max_digits=38, decimal_places=0, db_column='MADE_PALLETS')  # NUMBER(38,0)
+    made_pallets = models.PositiveIntegerField(db_column='MADE_PALLETS')  # NUMBER(38,0)
     pallet_id = models.DecimalField(max_digits=38, decimal_places=0, db_column='PALLET_ID')  # NUMBER(38,0)
 
     class Meta:
