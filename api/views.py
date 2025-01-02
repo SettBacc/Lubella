@@ -56,6 +56,7 @@ class OrdersListView(APIView):
         serializer = OrdersSerializer(orders, many=True)
         return Response(serializer.data)
 
+
 class WorkingDayListView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
