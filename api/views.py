@@ -76,3 +76,6 @@ def index(request):
 
 def add_working_day(request):
     return render(request, 'working_day.html')
+
+def reg(request):
+    return render(request, 'registration.html')

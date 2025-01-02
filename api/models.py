@@ -7,6 +7,10 @@ class CustomUserManager(BaseUserManager):
     def create_user(self, login, password=None, **extra_fields):
         if not login:
             raise ValueError('The Username field must be set')
+
+        extra_fields.setdefault('country', 'Unknown')
+        extra_fields.setdefault('company_name', 'No Name')
+
         user = self.model(login=login, **extra_fields)
         user.set_password(password)  # Haszowanie hasła
         user.save(using=self._db)
@@ -15,9 +19,9 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser):
     user_id = models.BigAutoField(primary_key=True, db_column='USER_ID')  # Zmiana nazwy głównego klucza
     login = models.CharField(max_length=150, unique=True, default="login")
-
-    #movies = models.ManyToManyField('Movie', related_name='users', blank=True)
-    last_login = models.DateTimeField(blank=True, null=True)
+    company_name = models.CharField(max_length=30, db_column='COMPANY_NAME')
+    country = models.CharField(max_length=15, db_column='COUNTRY')
+    last_login = models.DateTimeField(blank=True, null=True,db_column='LAST_LOGIN')
 
     USERNAME_FIELD = 'login'
     REQUIRED_FIELDS = []  # Żadne inne pola nie są wymagane przy tworzeniu użytkownika

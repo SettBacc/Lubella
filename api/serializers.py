@@ -9,13 +9,15 @@ from .models import WorkingDay
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ["user_id", "login", "password"]
+        fields = ["user_id", "login", "password", 'country', 'company_name']
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
         user = CustomUser.objects.create_user(
             login = validated_data['login'],
             password = validated_data['password'],
+            country = validated_data['country'],
+            company_name = validated_data['company_name']
         )
         return user
 

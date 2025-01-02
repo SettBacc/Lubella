@@ -31,7 +31,7 @@ urlpatterns = [
 
     path("login/", TokenObtainPairView.as_view(), name="token_get"),
     path("logout/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("reg/", UserView.as_view()),
+    path("reg/", UserView.as_view(),name="reg"),
 
     path('products/', ProductListView.as_view(), name='product_list'),  # URL rest framework dla produktów
     path('storage/', StorageListView.as_view(), name='storage_list'),   # URL rest framework dla magazynu
