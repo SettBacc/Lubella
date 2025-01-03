@@ -20,6 +20,7 @@ class CustomUser(AbstractBaseUser):
     id = models.BigAutoField(primary_key=True, db_column='ID')  # Zmiana nazwy głównego klucza
     login = models.CharField(max_length=150, unique=True, default="login")
     company_name = models.CharField(max_length=30, db_column='COMPANY_NAME')
+    user_type = models.CharField(max_length=6, db_column='USER_TYPE')
     country = models.CharField(max_length=15, db_column='COUNTRY')
     last_login = models.DateTimeField(blank=True, null=True,db_column='LAST_LOGIN')
 
@@ -78,7 +79,7 @@ class Orders(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='orders', db_column='ID')
     order_date = models.DateField(db_column='ORDER_DATE')  # DATE
     number_of_pallets = models.DecimalField(max_digits=38, decimal_places=0, db_column='NUMBER_OF_PALLETS')  # NUMBER(38,0)
-    pallet_id = models.DecimalField(max_digits=38, decimal_places=0, db_column='PALLET_ID')  # NUMBER(38,0)
+    pallet_id = models.ForeignKey(Storage, on_delete=models.CASCADE, related_name='orders', db_column='PALLET_ID')
     order_status = models.CharField(max_length=30, db_column='ORDER_STATUS')  # VARCHAR2(30 BYTE)
 
     class Meta:

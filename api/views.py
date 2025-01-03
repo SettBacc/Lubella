@@ -16,7 +16,7 @@ from .serializers import ProductSerializer, StorageSerializer, CompositionSerial
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import WorkingDayForm
-
+from datetime import date
 
 
 from django.shortcuts import render, redirect
@@ -53,32 +53,90 @@ class CompositionListView(APIView):
         compositions = Composition.objects.select_related('product_id').all()  # Optymalizacja: JOIN na tabeli Products
         serializer = CompositionSerializer(compositions, many=True)
         return Response(serializer.data)
-'''
-class OrdersListView(APIView):
-    # Brak wymaganych uprawnień — widok dostępny dla wszystkich
-    permission_classes = [AllowAny]
-
-    # Pobranie wszystkich produktów z tabeli ORDERS
-    def get(self, request):
-        orders = Orders.objects.all()
-        serializer = OrdersSerializer(orders, many=True)
-        return Response(serializer.data)
-'''
-
 
 class OrdersListView(APIView):
     # Brak wymaganych uprawnień — widok dostępny dla wszystkich
     permission_classes = [IsAuthenticated]
-
     # Pobranie wszystkich produktów z tabeli ORDERS
     def get(self, request):
-        if not request.user.is_authenticated:
-            return Response({"error": "User is not authenticated"}, status=403)
-
-        orders = Orders.objects.filter(user=request.user)
+        if request.user.user_type == 'ADMIN':
+            # Admin widzi wszystkie zamówienia
+            orders = Orders.objects.all()
+        elif request.user.user_type == 'CLIENT':
+            # Klient widzi tylko swoje zamówienia
+            orders = Orders.objects.filter(user=request.user)
         serializer = OrdersSerializer(orders, many=True)
         return Response(serializer.data)
 
+
+class OrdersAdd(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self,request):
+        # Sprawdź, czy użytkownik ma rolę "client"
+        if request.user.user_type != 'CLIENT':
+            return Response({"error": "Only clients can create orders"})
+
+        # Pobierz dane z żądania
+        data = request.data
+        data['order_date'] = date.today()
+        data['user'] = request.user.id  # Powiąż zamówienie z aktualnym użytkownikiem
+        data['order_status'] = "Waiting"
+        # Walidacja i zapis zamówienia
+        serializer = OrdersSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()  # Zapis zamówienia w bazie danych
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
+class OrdersDetails(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        # Sprawdzanie, czy użytkownik jest typu CLIENT
+        if request.user.user_type != 'CLIENT':
+            return Response({"error": "Only clients can view orders"}, status=403)
+
+        try:
+            # Pobranie obiektu Composition na podstawie pk
+            composition = Composition.objects.filter(pk=pk)
+        except Composition.DoesNotExist:
+            return Response({"error": "Composition not found"}, status=404)
+
+        # Serializacja obiektu
+        serializer = CompositionSerializer(composition, many=True)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        if request.user.user_type != 'CLIENT':
+            return Response({"error": "Only clients can create orders"})
+
+        try:
+            order = Orders.objects.get(pk=pk, user=request.user)
+        except Orders.DoesNotExist:
+            return Response({"error": "Order not found or you do not have permission to edit it."})
+        # Pobierz dane z żądania
+        data = request.data
+        data['order_date'] = date.today()
+        data['user'] = request.user.id  # Powiąż zamówienie z aktualnym użytkownikiem
+        data['order_status'] = "Waiting"
+        serializer = OrdersSerializer(order, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
+    def delete(self, request, pk):
+        if request.user.user_type != 'CLIENT':
+            return Response({"error": "Only clients can create orders"})
+
+        try:
+            order = Orders.objects.get(pk=pk, user=request.user)
+        except Orders.DoesNotExist:
+            return Response({"error": "Order not found or you do not have permission to delete it."})
+        order.delete()
+        return Response({"message": "Order deleted successfully."})
 
 class WorkingDayListView(APIView):
     # Brak wymaganych uprawnień — widok dostępny dla wszystkich
@@ -132,6 +190,7 @@ def add_working_day(request):
     else:
         form = WorkingDayForm()
     return render(request, 'working_day.html', {'form': form})
+
 
 def reg(request):
     return render(request, 'registration.html')
