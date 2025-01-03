@@ -15,27 +15,28 @@
 <body>
     <h1 class="title">Lista Palet</h1>
     <div class="pallet-container">
-        {% for pallet_id, compositions in grouped_compositions.items %}
-            <div class="pallet-card">
-                <h2>Paleta ID: {{ pallet_id }}</h2>
-                <div class="product-list">
-                    {% for comp in compositions %}
-                        <div class="product-card">
-                            <h3>{{ comp.product_id.category }}</h3>
-                            <p>Typ: {{ comp.product_id.type }}</p>
-                            <p>Waga: {{ comp.product_id.weight }} kg</p>
-                            <p>Cena: {{ comp.product_id.price }} PLN</p>
-                            <p>Ilość: {{ comp.number_of_products }}</p>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="product-actions">
-                    <!-- Pole do wpisania ilości dla całej palety -->
-                    <input type="number" id="quantity-{{ pallet_id }}" min="1">
-                    <button onclick="clearInput('{{ pallet_id }}')">Dodaj do koszyka</button>
-                </div>
+    {% for pallet_id, compositions in grouped_compositions.items %}
+        <div class="pallet-card" id="pallet-{{ pallet_id }}">
+            <h2>Paleta ID: {{ pallet_id }}</h2>
+            <h3 style="text-align: right;" id="total-price-{{ pallet_id }}">Cena całkowita: 0 PLN</h3>
+            <div class="product-list">
+                {% for comp in compositions %}
+                    <div class="product-card">
+                        <h3>{{ comp.product_id.category }}</h3>
+                        <p>Typ: {{ comp.product_id.type }}</p>
+                        <p>Waga: {{ comp.product_id.weight }} kg</p>
+                        <p>Cena: <span class="product-price" data-price="{{ comp.product_id.price }}">{{ comp.product_id.price }}</span> PLN</p>
+                        <p>Ilość: <span class="product-quantity" data-quantity="{{ comp.number_of_products }}">{{ comp.number_of_products }}</span></p>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
+            <div class="product-actions">
+                <input type="number" id="quantity-{{ pallet_id }}" min="1">
+                <button onclick="clearInput('{{ pallet_id }}')">Dodaj do koszyka</button>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<script src="{% static 'js/product_list.js' %}"></script>
 </body>
 </html>

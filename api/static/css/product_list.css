@@ -86,3 +86,10 @@ body {
 .product-actions button:hover {
     background-color: #218838;
 }
+
+.pallet-card h3 {
+    text-align: right;
+    color: #555;
+    font-weight: bold;
+}
+
