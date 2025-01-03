@@ -93,9 +93,6 @@ class OrdersDetails(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
-        # Sprawdzanie, czy użytkownik jest typu CLIENT
-        if request.user.user_type != 'CLIENT':
-            return Response({"error": "Only clients can view orders"}, status=403)
 
         try:
             # Pobranie obiektu Composition na podstawie pk
@@ -108,18 +105,27 @@ class OrdersDetails(APIView):
         return Response(serializer.data)
 
     def put(self, request, pk):
-        if request.user.user_type != 'CLIENT':
-            return Response({"error": "Only clients can create orders"})
-
         try:
-            order = Orders.objects.get(pk=pk, user=request.user)
+            if request.user.user_type == 'CLIENT':
+                order = Orders.objects.get(pk=pk, user=request.user)
+            # Jeśli użytkownik to admin, pobieramy dowolne zamówienie po kluczu `pk`
+            elif request.user.user_type == 'ADMIN':
+                order = Orders.objects.get(pk=pk)
         except Orders.DoesNotExist:
             return Response({"error": "Order not found or you do not have permission to edit it."})
+
         # Pobierz dane z żądania
         data = request.data
-        data['order_date'] = date.today()
-        data['user'] = request.user.id  # Powiąż zamówienie z aktualnym użytkownikiem
-        data['order_status'] = "Waiting"
+        # Automatyczne uzupełnienie niektórych pól
+        data['order_date'] = date.today()  # Ustaw dzisiejszą datę zamówienia
+        if request.user.user_type == 'CLIENT':
+            data['user'] = request.user.id  # Powiąż zamówienie z aktualnym użytkownikiem
+            data['order_status'] = "Waiting"  # Klient może ustawić status tylko na "Waiting"
+        elif request.user.user_type == 'ADMIN':
+            # Admin może edytować zamówienie w pełni
+            data['user'] = order.user.id
+            pass
+
         serializer = OrdersSerializer(order, data=data)
         if serializer.is_valid():
             serializer.save()
@@ -128,11 +134,14 @@ class OrdersDetails(APIView):
             return Response(serializer.errors)
 
     def delete(self, request, pk):
-        if request.user.user_type != 'CLIENT':
-            return Response({"error": "Only clients can create orders"})
 
         try:
-            order = Orders.objects.get(pk=pk, user=request.user)
+            # Jeśli użytkownik to klient, może usuwać tylko swoje zamówienia
+            if request.user.user_type == 'CLIENT':
+                order = Orders.objects.get(pk=pk, user=request.user)
+            # Jeśli użytkownik to admin, może usuwać dowolne zamówienie
+            elif request.user.user_type == 'ADMIN':
+                order = Orders.objects.get(pk=pk)
         except Orders.DoesNotExist:
             return Response({"error": "Order not found or you do not have permission to delete it."})
         order.delete()
