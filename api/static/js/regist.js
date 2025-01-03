@@ -34,8 +34,6 @@ document.getElementById('register-form').addEventListener('submit', async functi
             const data = await response.json();
             // Zarejestrowano pomyślnie
             alert('Zarejestrowano pomyślnie!');
-            console.log('Token:', data.access);
-            localStorage.setItem('accessToken', data.access); // Przykład zapisu tokena
         } else {
             const errorData = await response.json();
             document.getElementById('message').textContent = errorData.detail || 'Błąd rejestracji';
