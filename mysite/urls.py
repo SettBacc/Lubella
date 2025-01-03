@@ -24,6 +24,8 @@ from api.views import StorageListView
 from api.views import CompositionListView
 from api.views import OrdersListView
 from api.views import WorkingDayListView
+from api.views import OrdersAdd
+from api.views import OrdersDetails
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,5 +39,7 @@ urlpatterns = [
     path('storage/', StorageListView.as_view(), name='storage_list'),   # URL rest framework dla magazynu
     path('composition/', CompositionListView.as_view(), name='composition_list'),   # URL rest framework dla składu palet
     path('orders/', OrdersListView.as_view(), name='orders_list'), # URL rest framework dla zamówień
+    path('orders/create/', OrdersAdd.as_view(), name='create_order'),
+    path('orders/details/<int:pk>/', OrdersDetails.as_view(), name='order_detail'),
     path('working_day/', WorkingDayListView.as_view(), name='working_day_list'), # URL rest framework dla dnia pracy
 ]

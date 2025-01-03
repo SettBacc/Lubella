@@ -42,10 +42,10 @@ class CompositionSerializer(serializers.ModelSerializer):
         fields = ['pallet_id', 'product_id', 'number_of_products']  # Zamień `product_id` na pełne dane
 
 class OrdersSerializer(serializers.ModelSerializer):
-    #user_login = serializers.CharField(source='user.login')  # Dodanie loginu użytkownika
     class Meta:
         model = Orders
-        fields = '__all__'
+        fields = ['order_id', 'order_date', 'number_of_pallets', 'pallet_id', 'order_status','user']  # Uwzględnij wszystkie pola
+        #read_only_fields = ['order_id','user', 'order_date']  # Nie pozwalaj na modyfikację tych pól
 
 class WorkingDaySerializer(serializers.ModelSerializer):
     class Meta:
