@@ -1,15 +1,17 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logowanie</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
     <script src="{% static 'js/script.js' %}" defer></script>
 </head>
 <body>
-<div>
+<div class="register-container">
+    <h1>Rejestracja</h1>
 <form id="register-form" method="POST">
     {% csrf_token %}
     <label for="login">Login:</label>
@@ -32,7 +34,9 @@
 
     </br>
 
-    <button type="submit">Zarejestruj się</button>
+    <button type="submit">Zarejestruj się
+
+    </button>
 
 </form>
 
