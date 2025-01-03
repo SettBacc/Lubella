@@ -149,31 +149,33 @@ class OrdersDetails(APIView):
 
 class WorkingDayListView(APIView):
     # Brak wymaganych uprawnień — widok dostępny dla wszystkich
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     # Pobranie wszystkich produktów z tabeli WORKING_DAY
     def get(self, request):
-        working_day = WorkingDay.objects.all()
-        serializer = WorkingDaySerializer(working_day, many=True)
-        return Response(serializer.data)
+        if request.user.user_type == 'ADMIN':
+            working_day = WorkingDay.objects.all()
+            serializer = WorkingDaySerializer(working_day, many=True)
+            return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
-        serializer = WorkingDaySerializer(data=request.data)
-        if serializer.is_valid():
-            working_day = serializer.save()
+        if request.user.user_type == 'ADMIN':
+            serializer = WorkingDaySerializer(data=request.data)
+            if serializer.is_valid():
+                working_day = serializer.save()
 
-            # aktualizacja liczby palet w Storage
-            try:
-                storage = Storage.objects.get(pallet_id=working_day.pallet_id)  # dodawanie palet do magazynu
-                storage.number_of_pallets += working_day.made_pallets
-                storage.save()
-            except Storage.DoesNotExist:
-                return Response(
-                    {"error": f"Storage with pallet_id {working_day.pallet_id} does not exist."},
-                )
+                # aktualizacja liczby palet w Storage
+                try:
+                    storage = Storage.objects.get(pallet_id=working_day.pallet_id)  # dodawanie palet do magazynu
+                    storage.number_of_pallets += working_day.made_pallets
+                    storage.save()
+                except Storage.DoesNotExist:
+                    return Response(
+                        {"error": f"Storage with pallet_id {working_day.pallet_id} does not exist."},
+                    )
 
-            return Response(serializer.data)
-        return Response(serializer.errors)
+                return Response(serializer.data)
+            return Response(serializer.errors)
 
 
 def index(request):
