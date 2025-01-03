@@ -46,7 +46,7 @@ class Product(models.Model):
     category = models.CharField(max_length=20, db_column='CATEGORY')  # VARCHAR2(20)
     type = models.CharField(max_length=15, db_column='TYPE')  # VARCHAR2(15)
     weight = models.IntegerField(db_column='WEIGHT')  # INTEGER
-    price = models.DecimalField(max_digits=5, decimal_places=2, db_column='PRICE')  # NUMBER(3,2)
+    price = models.DecimalField(max_digits=3, decimal_places=2, db_column='PRICE')  # NUMBER(3,2)
 
     class Meta:
         db_table = 'PRODUCTS'  # Odniesienie do tabeli w bazie Oracle
@@ -63,7 +63,7 @@ class Composition(models.Model):
     #PK_id = models.IntegerField(primary_key=True)
     pallet_id = models.IntegerField(primary_key=True, unique=False, db_column='PALLET_ID')  # Klucz obcy do `Storage`
     product_id = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='compositions', db_column='PRODUCT_ID')  # Klucz obcy do `Products`
-    number_of_products = models.IntegerField(db_column='NUMBER_OF_PRODUCTS')
+    number_of_products = models.DecimalField(max_digits=38, decimal_places=0, db_column='NUMBER_OF_PRODUCTS')  # Number(38,0)
 
     class Meta:
         managed = False  # Ustawienie na False oznacza, że Django nie będzie próbowało zarządzać schematem tabeli
