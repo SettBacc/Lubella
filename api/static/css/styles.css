@@ -9,7 +9,7 @@ body {
 }
 
 .login-container {
-    background: #ffffff;
+    background: #3edbfa;
     padding: 20px 40px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@ h1 {
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     text-align: left;
 }
 
