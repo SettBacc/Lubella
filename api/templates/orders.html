@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/orders.css' %}">
+</head>
+
+<body>
+    <div class="button-bar">
+    <a href="/new_order/" class="button-link">Dodaj nowe zamówienie</a>
+    <a href="/product_list/" class="button-link">Lista produktów</a>
+    </div>
+
+    <div class="blue-bar">
+    <span class="logo">Lubella</span>
+    <a href="javascript:void(0)" class="logout">Wyloguj</a>
+    <script src="{% static 'js/logout.js' %}"></script>
+    </div>
+
+    <div class="table-container">
+        <h1>Tabela Zamówień</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id Zamówienia</th>
+                        <th>Data</th>
+                        <th>Liczba Palet</th>
+                        <th>Id Palet</th>
+                        <th>Cena Palet</th>
+                        <th>Akcja</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>2025-01-01</td>
+                        <td>10</td>
+                        <td>PAL001</td>
+                        <td>500 PLN</td>
+                        <td><a class="btn" href="/details/1">Szczegóły</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>2025-01-02</td>
+                        <td>15</td>
+                        <td>PAL002</td>
+                        <td>750 PLN</td>
+                        <td><a class="btn" href="/details/2">Szczegóły</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+</body>
+
+</html>

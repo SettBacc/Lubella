@@ -1,0 +1,54 @@
+body {
+.table-container {
+    max-width: 1200px; /* Maksymalna szerokość kontenera */
+    margin: 20px auto; /* Wyśrodkowanie kontenera */
+    padding: 20px; /* Odstęp wewnętrzny */
+    background-color: #fdfdfd; /* Tło kontenera */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lekki cień dla lepszego wyglądu */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    border: 1px solid #ddd; /* Obramowanie */
+}
+
+.table-container h1 {
+    text-align: center; /* Wyśrodkowanie nagłówka */
+    font-size: 24px; /* Rozmiar czcionki nagłówka */
+    margin-bottom: 20px; /* Odstęp między nagłówkiem a tabelą */
+    color: #333; /* Kolor tekstu nagłówka */
+}
+
+.table-container table {
+    width: 100%; /* Tabela zajmuje całą szerokość kontenera */
+    border-collapse: collapse; /* Scal obramowania tabeli */
+}
+
+.table-container th,
+.table-container td {
+    padding: 12px; /* Odstęp wewnętrzny komórek */
+    text-align: left; /* Wyrównanie tekstu do lewej */
+    border: 1px solid #ddd; /* Obramowanie komórek */
+}
+
+.table-container th {
+    background-color: #f4f4f4; /* Tło nagłówków tabeli */
+    font-weight: bold; /* Wyróżnienie nagłówków */
+}
+
+.table-container tr:hover {
+    background-color: #f9f9f9; /* Efekt podświetlenia wiersza przy najechaniu */
+}
+
+.table-container .btn {
+    display: inline-block; /* Stylizacja linków jako przycisków */
+    padding: 8px 16px;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.table-container .btn:hover {
+    background-color: #0056b3;
+}
+
+}

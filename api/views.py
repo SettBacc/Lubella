@@ -235,8 +235,8 @@ def product_list(request):
     # Przekazanie danych do szablonu
     return render(request, 'product_list.html', {'grouped_compositions': grouped_compositions})
 
-def menu(request):
-    return render(request, 'menu.html')
+def orders(request):
+    return render(request, 'orders.html')
 
 def admin_menu(request):
     return render(request, 'admin_menu.html')
