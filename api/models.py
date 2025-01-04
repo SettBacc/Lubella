@@ -22,7 +22,7 @@ class CustomUser(AbstractBaseUser):
     company_name = models.CharField(max_length=30, db_column='COMPANY_NAME')
     user_type = models.CharField(max_length=6, db_column='USER_TYPE')
     country = models.CharField(max_length=15, db_column='COUNTRY')
-    last_login = models.DateTimeField(blank=True, null=True,db_column='LAST_LOGIN')
+    last_login = models.DateTimeField(db_column='LAST_LOGIN')
 
     USERNAME_FIELD = 'login'
     REQUIRED_FIELDS = []  # Żadne inne pola nie są wymagane przy tworzeniu użytkownika
