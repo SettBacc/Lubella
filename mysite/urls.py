@@ -26,12 +26,13 @@ from api.views import OrdersListView
 from api.views import WorkingDayListView
 from api.views import OrdersAdd
 from api.views import OrdersDetails
-
+from api.views import CustomTokenObtainPairView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('api.urls')),  # Połącz URLs z aplikacji, pliki (front_endu, html,css,js)
 
-    path("login/", TokenObtainPairView.as_view(), name="token_get"),
+    #path("login/", TokenObtainPairView.as_view(), name="token_get"),
+    path("login/", CustomTokenObtainPairView.as_view(), name="token_get"),
     path("logout/", TokenRefreshView.as_view(), name="token_refresh"),
     path("reg/", UserView.as_view(),name="reg"),
 

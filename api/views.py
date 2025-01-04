@@ -17,15 +17,36 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import WorkingDayForm
 from datetime import date
-
-
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
+from django.utils.timezone import now
 
 class UserView(generics.ListCreateAPIView):
     queryset = CustomUser.objects.raw('SELECT * FROM USERS')
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
+class CustomTokenObtainPairView(TokenObtainPairView):
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        login = request.data['login']
+        print("Request data:", request.data['login'])
+        print(login)
+        if login:
+            # Pobierz użytkownika na podstawie nazwy użytkownika
+            User = get_user_model()
+            try:
+                user = User.objects.get(login=login)
+                # Aktualizuj last_login
+                user.last_login = now()
+                #print(user.last_login)
+                user.save()
+            except User.DoesNotExist:
+                pass
+
+        return response
 
 class ProductListView(APIView):
     # Brak wymaganych uprawnień — widok dostępny dla wszystkich
