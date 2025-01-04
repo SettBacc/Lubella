@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'js/working_day.js' %}" defer></script>
     <title>Add Working Day</title>
 </head>
 <body>
     <h1>Dodawanie Zmiany</h1>
-    <form method="POST" action="http://127.0.0.1:8000/working_day/" id="workingDayForm">
+    <form id="workingDayForm" method="POST">
         <label for="work_date">Dzień pracy:</label>
         <input type="date" id="work_date" name="work_date" required><br><br>
 
