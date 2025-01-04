@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <div class="button-bar">
+    <a href="/new-order" class="button-link">Dodaj nowe zamówienie</a>
+    <a href="/product-list" class="button-link">Lista produktów</a>
+    </div>
+
+    <div class="blue-bar">
+    <span class="logo">Lubella</span>
+    <a href="index" class="logout">Wyloguj</a>
+    <!-- zostawiam wylogowywanie do ogarnięcia później, należy uzupełnić adres url -->
+    </div>
+</body>
+
+</html>
