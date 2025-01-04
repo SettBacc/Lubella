@@ -29,7 +29,7 @@ class UserView(generics.ListCreateAPIView):
 
 class ProductListView(APIView):
     # Brak wymaganych uprawnień — widok dostępny dla wszystkich
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         # Pobranie wszystkich produktów z tabeli PRODUCTS
@@ -39,9 +39,11 @@ class ProductListView(APIView):
 
 class StorageListView(APIView):
     # Brak wymaganych uprawnień — widok dostępny dla wszystkich
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        if request.user.user_type != 'ADMIN':
+            return Response({"error": "Only Admins can create orders"})
         # Pobranie wszystkich produktów z tabeli PRODUCTS
         storage = Storage.objects.all()
         serializer = StorageSerializer(storage, many=True)
@@ -59,6 +61,8 @@ class OrdersListView(APIView):
     permission_classes = [IsAuthenticated]
     # Pobranie wszystkich produktów z tabeli ORDERS
     def get(self, request):
+        print(request.user.company_name)
+        print(request.user.country)
         if request.user.user_type == 'ADMIN':
             # Admin widzi wszystkie zamówienia
             orders = Orders.objects.all()
@@ -93,10 +97,21 @@ class OrdersDetails(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
-
         try:
+            if request.user.user_type == 'CLIENT':
+                order = Orders.objects.get(pk=pk, user=request.user)
+            # Jeśli użytkownik to admin, pobieramy dowolne zamówienie po kluczu `pk`
+            elif request.user.user_type == 'ADMIN':
+                order = Orders.objects.get(pk=pk)
+
+            pallet_id = order.pallet_id_id
             # Pobranie obiektu Composition na podstawie pk
-            composition = Composition.objects.filter(pk=pk)
+            composition = Composition.objects.filter(pallet_id=pallet_id)
+            if not composition.exists():
+                return Response({"error": "No compositions found for the given pallet ID"}, status=404)
+
+        except Orders.DoesNotExist:
+            return Response({"error": "Order not found or you do not have permission to view it"}, status=404)
         except Composition.DoesNotExist:
             return Response({"error": "Composition not found"}, status=404)
 

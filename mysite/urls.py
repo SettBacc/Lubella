@@ -41,5 +41,5 @@ urlpatterns = [
     path('orders/', OrdersListView.as_view(), name='orders_list'), # URL rest framework dla zamówień
     path('orders/create/', OrdersAdd.as_view(), name='create_order'),
     path('orders/details/<int:pk>/', OrdersDetails.as_view(), name='order_detail'),
-    path('working_day/', WorkingDayListView.as_view(), name='working_day_list'), # URL rest framework dla dnia pracy
+    path('working_day/', WorkingDayListView.as_view(), name='working_day_list'), # URL rest framework dla dnia prac
 ]
