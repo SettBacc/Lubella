@@ -11,6 +11,5 @@ urlpatterns = [
     path('registration/', reg, name='registration'),  # Strona od dodawania nowego uzytkownika
     path('product_list/', views.product_list, name='product_list'),
     path('menu/', menu, name='menu'),
-    path('admin_menu', admin_menu, name='admin_menu')
-
+    path('admin_menu/', admin_menu, name='admin_menu')
 ]
