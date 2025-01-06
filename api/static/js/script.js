@@ -26,6 +26,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
             alert('Zalogowano pomyślnie!');
             console.log('Token:', data.access);
             localStorage.setItem('accessToken', data.access); // Przykład zapisu tokena
+            window.location.href = '/orders/';
+
         } else {
             const errorData = await response.json();
             document.getElementById('message').textContent = errorData.detail || 'Błąd logowania';

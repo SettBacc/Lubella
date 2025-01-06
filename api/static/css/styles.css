@@ -50,10 +50,10 @@ h2 {
         border-radius: 5px;
         font-weight: bold;
         transition: background-color 0.3s;
-    }
 
-    .logout:hover {
-        background-color: #ff6666; /* Jaśniejszy czerwony na hover */
+        .logout:hover {
+            background-color: #ff6666; /* Jaśniejszy czerwony na hover */
+        }
     }
 }
 
