@@ -70,6 +70,7 @@ h2 {
     box-sizing: border-box;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    border: 1px solid #ccc;
 
     display: flex; /* Użycie flexboxa */
     justify-content: space-between; /* Rozkłada elementy na boki */

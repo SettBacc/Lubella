@@ -276,3 +276,14 @@ def orders(request):
 def admin_menu(request):
     return render(request, 'admin_menu.html')
 
+def new_order(request):
+    # Pobranie wszystkich rekordów Composition z grupowaniem według pallet_id
+    compositions = Composition.objects.all().select_related('product_id')
+
+    # Grupowanie danych według pallet_id
+    grouped_compositions = {}
+    for comp in compositions:
+        if comp.pallet_id not in grouped_compositions:
+            grouped_compositions[comp.pallet_id] = []
+        grouped_compositions[comp.pallet_id].append(comp)
+    return render(request, 'new_order.html', {'grouped_compositions': grouped_compositions})
