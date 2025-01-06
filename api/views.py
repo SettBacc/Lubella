@@ -16,16 +16,38 @@ from .serializers import ProductSerializer, StorageSerializer, CompositionSerial
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import WorkingDayForm
-from datetime import date
-
-
+from datetime import date, datetime
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
+
+from django.db.models import F
 
 class UserView(generics.ListCreateAPIView):
     queryset = CustomUser.objects.raw('SELECT * FROM USERS')
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
+class CustomTokenObtainPairView(TokenObtainPairView):
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        login = request.data['login']
+        print("Request data:", request.data['login'])
+        print(login)
+        if login:
+            # Pobierz użytkownika na podstawie nazwy użytkownika
+            User = get_user_model()
+            try:
+                user = User.objects.get(login=login)
+                # Aktualizuj last_login
+                user.last_login = datetime.today()
+                #print(user.last_login)
+                user.save()
+            except User.DoesNotExist:
+                pass
+
+        return response
 
 class ProductListView(APIView):
     # Brak wymaganych uprawnień — widok dostępny dla wszystkich
@@ -122,31 +144,44 @@ class OrdersDetails(APIView):
     def put(self, request, pk):
         try:
             if request.user.user_type == 'CLIENT':
-                order = Orders.objects.get(pk=pk, user=request.user)
-            # Jeśli użytkownik to admin, pobieramy dowolne zamówienie po kluczu `pk`
+                order = Orders.objects.get(order_id=pk, user=request.user)
             elif request.user.user_type == 'ADMIN':
-                order = Orders.objects.get(pk=pk)
+                order = Orders.objects.get(order_id=pk)
         except Orders.DoesNotExist:
-            return Response({"error": "Order not found or you do not have permission to edit it."})
+            return Response({"error": "Order not found or you do not have permission to edit it."}, status=404)
 
-        # Pobierz dane z żądania
         data = request.data
-        # Automatyczne uzupełnienie niektórych pól
-        data['order_date'] = date.today()  # Ustaw dzisiejszą datę zamówienia
+        data['order_date'] = date.today()
+
         if request.user.user_type == 'CLIENT':
-            data['user'] = request.user.id  # Powiąż zamówienie z aktualnym użytkownikiem
-            data['order_status'] = "Waiting"  # Klient może ustawić status tylko na "Waiting"
+            data['user'] = request.user.id
+            data['order_status'] = "Waiting"
         elif request.user.user_type == 'ADMIN':
-            # Admin może edytować zamówienie w pełni
             data['user'] = order.user.id
-            pass
 
         serializer = OrdersSerializer(order, data=data)
         if serializer.is_valid():
+            old_status = order.order_status
+            new_status = data.get('order_status')
+
+            if old_status != "Ready" and new_status == "Ready":
+                try:
+                    # Pobieramy rekord magazynu powiązany z zamówieniem
+                    storage_item = Storage.objects.get(pallet_id=order.pallet_id_id)
+
+                    # Sprawdzamy, czy w magazynie jest wystarczająca liczba palet
+                    if storage_item.number_of_pallets >= order.number_of_pallets:
+                        storage_item.number_of_pallets = F('number_of_pallets') - order.number_of_pallets
+                        storage_item.save()
+                    else:
+                        return Response({"error": "Not enough pallets in storage."}, status=400)
+                except Storage.DoesNotExist:
+                    return Response({"error": "Storage record not found for pallet_id."}, status=404)
+
             serializer.save()
             return Response(serializer.data)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=400)
 
     def delete(self, request, pk):
 

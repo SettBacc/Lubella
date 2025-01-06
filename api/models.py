@@ -10,7 +10,8 @@ class CustomUserManager(BaseUserManager):
 
         extra_fields.setdefault('country', 'Unknown')
         extra_fields.setdefault('company_name', 'No Name')
-
+        extra_fields.setdefault('last_login', '2025-01-01')
+        extra_fields.setdefault('user_type', 'CLIENT')
         user = self.model(login=login, **extra_fields)
         user.set_password(password)  # Haszowanie hasła
         user.save(using=self._db)
@@ -20,9 +21,9 @@ class CustomUser(AbstractBaseUser):
     id = models.BigAutoField(primary_key=True, db_column='ID')  # Zmiana nazwy głównego klucza
     login = models.CharField(max_length=150, unique=True, default="login")
     company_name = models.CharField(max_length=30, db_column='COMPANY_NAME')
-    user_type = models.CharField(max_length=6, db_column='USER_TYPE')
+    user_type = models.CharField(max_length=6, default="CLIENT", db_column='USER_TYPE')
     country = models.CharField(max_length=15, db_column='COUNTRY')
-    last_login = models.DateTimeField(blank=True, null=True,db_column='LAST_LOGIN')
+    last_login = models.DateTimeField(default="2025-01-01",db_column='LAST_LOGIN')
 
     USERNAME_FIELD = 'login'
     REQUIRED_FIELDS = []  # Żadne inne pola nie są wymagane przy tworzeniu użytkownika
