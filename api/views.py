@@ -23,6 +23,8 @@ from django.shortcuts import render, redirect
 
 from django.db.models import F
 
+from django.db.models import F
+
 class UserView(generics.ListCreateAPIView):
     queryset = CustomUser.objects.raw('SELECT * FROM USERS')
     serializer_class = UserSerializer
