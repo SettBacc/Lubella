@@ -16,11 +16,10 @@ from .serializers import ProductSerializer, StorageSerializer, CompositionSerial
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import WorkingDayForm
-from datetime import date
+from datetime import date, datetime
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
-from django.utils.timezone import now
 
 from django.db.models import F
 
@@ -42,7 +41,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             try:
                 user = User.objects.get(login=login)
                 # Aktualizuj last_login
-                user.last_login = now()
+                user.last_login = datetime.today()
                 #print(user.last_login)
                 user.save()
             except User.DoesNotExist:

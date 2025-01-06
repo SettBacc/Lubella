@@ -10,7 +10,7 @@ from django import forms
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ["user_id", "login", "password", 'country', 'company_name','last_login']
+        fields = ["id", "login", "password", 'country', 'company_name','last_login']
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
