@@ -8,9 +8,9 @@ from .views import admin_menu
 urlpatterns = [
     path('', index, name='index'),  # Strona główna
     path('add_working_day/', add_working_day, name='working_day'),  # Strona od dodawania dnia pracy
-    path('registration/', reg, name='registration'),  # Strona od dodawania nowego uzytkownika
-    path('product_list/', views.product_list, name='product_list'),
-    path('orders/', orders, name='orders'),
-    path('admin_menu', admin_menu, name='admin_menu')
+    path('registration/', reg, name='registration'),  # Strona od dodawania nowego użytkownika
+    path('product_list/', views.product_list, name='product_list'),  # Strona od listy produktów
+    path('orders/', orders, name='orders'),  # Strona od listy zamówień
+    path('admin_menu', admin_menu, name='admin_menu')  # Strona główna dla Admina po zalogowaniu
 
 ]
