@@ -26,7 +26,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
             alert('Zalogowano pomyślnie!');
             console.log('Token:', data.access);
             localStorage.setItem('accessToken', data.access); // Przykład zapisu tokena
-            window.location.href = '/orders/';
+            window.location.href = '/orders_list/';
 
         } else {
             const errorData = await response.json();

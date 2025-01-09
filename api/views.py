@@ -43,7 +43,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             try:
                 user = User.objects.get(login=login)  # Szukanie użytkownika na podstawie jego loginu
                 # Aktualizuj last_login
-                user.last_login = datetime.today()
+                user.last_login = datetime.now()
                 user.save()  # Zapisywanie zmian w bazie danych
             except User.DoesNotExist:
                 pass

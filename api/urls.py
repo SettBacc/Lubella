@@ -10,7 +10,7 @@ urlpatterns = [
     path('add_working_day/', add_working_day, name='working_day'),  # Strona od dodawania dnia pracy
     path('registration/', reg, name='registration'),  # Strona od dodawania nowego użytkownika
     path('product_list/', views.product_list, name='product_list'),  # Strona od listy produktów
-    path('orders/', orders, name='orders'),  # Strona od listy zamówień
+    path('orders_list/', orders, name='orders_list'),  # Strona od listy zamówień
     path('admin_menu', admin_menu, name='admin_menu')  # Strona główna dla Admina po zalogowaniu
 
 ]
