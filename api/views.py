@@ -50,6 +50,16 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
         return response
 
+class User_info(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):  # Żądanie GET
+        print(request.user)
+        login = request.user
+        user = get_user_model()
+        user_info = user.objects.get(login=login)  # Pobieranie wszystkich danych o uzytkowniku
+        serializer = UserSerializer(user_info)  # Serializacja listy danych usera (przekształcanie obiektów w listę słowników)
+        return Response(serializer.data)  # Dane zwracane w formacie Json
+
 # Widok API do listowania produktów
 class ProductListView(APIView):
     permission_classes = [IsAuthenticated]  #  Widok dostępny tylko dla zalogowanych użytkowników
