@@ -27,6 +27,7 @@ from api.views import WorkingDayListView
 from api.views import OrdersAdd
 from api.views import OrdersDetails
 from api.views import CustomTokenObtainPairView
+from api.views import User_info
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('api.urls')),  # Połącz URLs z aplikacji, pliki (front_endu, html,css,js)
@@ -43,4 +44,5 @@ urlpatterns = [
     path('orders/create/', OrdersAdd.as_view(), name='create_order'),  # URL do tworzenia zamówienia
     path('orders/details/<int:pk>/', OrdersDetails.as_view(), name='order_detail'),  # URL do szczegółów danego zamówienia
     path('working_day/', WorkingDayListView.as_view(), name='working_day_list'), # URL rest framework dla dnia prac
+    path('user_info/', User_info.as_view(), name='user_info')
 ]

@@ -11,7 +11,7 @@ from django import forms
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser  # Powiązanie z modelem od klienta
-        fields = ["id", "login", "password", 'country', 'company_name','last_login']  # Pola do serializacji z bazy danych
+        fields = ["id", "login", "password", 'country', 'company_name','user_type','last_login']  # Pola do serializacji z bazy danych
         extra_kwargs = {"password": {"write_only": True}}  # Hasło dostępne tylko do zapisu niewidoczne w odpowiedzi
 
     # Tworzenie użytkownika
