@@ -1,39 +1,66 @@
-// Funkcja weryfikująca token
-async function verifyToken() {
-    const token = localStorage.getItem('accessToken');
+// Funkcja obsługująca kliknięcie przycisku
+function handleButtonClick(event) {
+    const button = event.currentTarget; // Uzyskanie przycisku, który został kliknięty
+    const targetUrl = button.getAttribute("data-url"); // Pobranie adresu URL z atrybutu data-url
 
-    if (!token) {
-        console.error('Brak tokena. Użytkownik nie jest zalogowany.');
-        window.location.href = 'http://127.0.0.1:8000'; // Przekierowanie na stronę logowania
-        return false;
+    if (!targetUrl) {
+        console.error("Brak adresu URL w atrybucie data-url.");
+        return;
     }
 
-    try {
-        const response = await fetch('http://127.0.0.1:8000/auth/verify/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify({ token: token })
-        });
+    const token = localStorage.getItem("accessToken"); // Pobranie tokena z local storage
 
-        if (response.ok) {
-            console.log('Token jest poprawny.');
-            return true;
-        } else {
-            console.warn('Token jest niepoprawny lub wygasł.');
-            localStorage.removeItem('accessToken'); // Usunięcie nieważnego tokena
-            window.location.href = 'http://127.0.0.1:8000'; // Przekierowanie na stronę logowania
-            return false;
-        }
-    } catch (error) {
-        console.error('Błąd podczas weryfikacji tokena:', error);
-        window.location.href = 'http://127.0.0.1:8000';
-        return false;
+    if (token) {
+        // Jeśli token jest prawidłowy, przekieruj użytkownika
+        window.location.href = targetUrl;
+    } else {
+        // Jeśli token jest nieprawidłowy, wyświetl komunikat
+        alert("Twój token jest nieprawidłowy lub wygasł. Zaloguj się ponownie.");
     }
 }
 
-// Nasłuchiwanie zmiany trasy (np. w React Router lub podobnym mechanizmie)
-window.addEventListener('popstate', verifyToken); // Wstecz/dalej
-window.addEventListener('pushstate', verifyToken); // Ręczne przejście na trasę (wymaga dodatkowego polyfillu)
+// Dodanie event listenera do wszystkich przycisków z klasą "redirect-button"
+document.querySelectorAll(".redirect-button").forEach(button => {
+    button.addEventListener("click", handleButtonClick);
+});
+
+
+//niepotrzebny prototyp
+async function loader() {
+    const token = localStorage.getItem("accessToken");
+    if(token){
+
+        //load info about user's orders
+         try {
+            const response = await fetch('http://127.0.0.1:8000/orders/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            console.log('test-1')
+
+            if (response.ok) {
+                console.log(response)
+                const data = await response.json();
+                console.log('test-2')
+                console.log(data)
+
+            } else {
+                console.log(response)
+                const errorData = await response.json();
+                console.log('test-3')
+                alert(errorData)
+
+            }
+        } catch (error) {
+            alert('Wystąpił błąd podczas logowania');
+            console.log('Error:', error);
+            console.log('test-4')
+        }
+    }
+}
+
+
+//loader()
