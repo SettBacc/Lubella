@@ -6,13 +6,15 @@
     <meta charset="UTF-8">
     <title>Orders</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/orders.css' %}">
+    <link rel="stylesheet" href="{% static 'css/order_list.css' %}">
+    <script src="{% static 'js/verify.js' %}" defer></script>
+    <script src="{% static 'js/order_list.js' %}" defer></script>
 </head>
 
 <body>
     <div class="button-bar">
-    <a href="/new_order/" class="button-link">Dodaj nowe zamówienie</a>
-    <a href="/product_list/" class="button-link">Lista produktów</a>
+        <button class="redirect-button" data-url="/new_order/">Dodaj nowe zamówienie</button>
+        <button class="redirect-button" data-url="/product_list/">Lista produktów</button>
     </div>
 
     <div class="blue-bar">
@@ -35,22 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>2025-01-01</td>
-                        <td>10</td>
-                        <td>PAL001</td>
-                        <td>500 PLN</td>
-                        <td><a class="btn" href="/details/1">Szczegóły</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>2025-01-02</td>
-                        <td>15</td>
-                        <td>PAL002</td>
-                        <td>750 PLN</td>
-                        <td><a class="btn" href="/details/2">Szczegóły</a></td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
