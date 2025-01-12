@@ -7,12 +7,14 @@ from .models import Orders
 from .models import WorkingDay
 from django import forms
 
+# Serializer od użytkownika
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
-        fields = ["id", "login", "password", 'country', 'company_name','last_login']
-        extra_kwargs = {"password": {"write_only": True}}
+        model = CustomUser  # Powiązanie z modelem od klienta
+        fields = ["id", "login", "password", 'country', 'company_name','last_login']  # Pola do serializacji z bazy danych
+        extra_kwargs = {"password": {"write_only": True}}  # Hasło dostępne tylko do zapisu niewidoczne w odpowiedzi
 
+    # Tworzenie użytkownika
     def create(self, validated_data):
         user = CustomUser.objects.create_user(
             login = validated_data['login'],
@@ -23,30 +25,34 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-
+# Serializer od tabeli PRODUCTS
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ['product_id', 'category', 'type', 'weight', 'price']
 
+# Serializer od tabeli STORAGE
 class StorageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Storage
         fields = ['pallet_id', 'number_of_pallets', 'standard']
 
+# Serializer od tabeli COMPOSITION
 class CompositionSerializer(serializers.ModelSerializer):
-    product_id = ProductSerializer()  # Wstaw szczegóły produktu
+    product_id = ProductSerializer()  # Wstawianie szczegółów produktu
 
     class Meta:
         model = Composition
-        fields = ['pallet_id', 'product_id', 'number_of_products']  # Zamień `product_id` na pełne dane
+        fields = ['pallet_id', 'product_id', 'number_of_products']  # Zmiana `product_id` na pełne dane
 
+# Serializer od tabeli ORDERS
 class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
         fields = ['order_id', 'order_date', 'number_of_pallets', 'pallet_id', 'order_status','user']  # Uwzględnij wszystkie pola
         #read_only_fields = ['order_id','user', 'order_date']  # Nie pozwalaj na modyfikację tych pól
 
+# Serializer od tabeli WORKING_DAY
 class WorkingDaySerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkingDay
