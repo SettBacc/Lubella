@@ -24,8 +24,8 @@ document.querySelectorAll(".redirect-button").forEach(button => {
     button.addEventListener("click", handleButtonClick);
 });
 
-/*
-niepotrzebny prototyp
+
+//niepotrzebny prototyp
 async function loader() {
     const token = localStorage.getItem("accessToken");
     if(token){

@@ -1,12 +1,6 @@
-console.log('Plik order_list.js został poprawnie załadowany i jest wykonywany.');
-
 async function fetchAndPopulateTable() {
     const endpointUrl = 'http://127.0.0.1:8000/orders/';
     const token = localStorage.getItem('accessToken');
-
-    console.log('Rozpoczęcie pobierania danych z API...');
-    console.log('Endpoint URL:', endpointUrl);
-    console.log('Token z localStorage:', token);
 
     if (!token) {
         console.error('Brak tokena w localStorage! Użytkownik nie jest zalogowany.');
@@ -23,8 +17,6 @@ async function fetchAndPopulateTable() {
             },
         });
 
-        console.log('Status odpowiedzi:', response.status);
-
         if (!response.ok) {
             const errorData = await response.json();
             console.error('Błąd pobierania danych:', errorData);
@@ -39,15 +31,12 @@ async function fetchAndPopulateTable() {
         }
 
         const data = await response.json();
-        console.log('Pobrane dane z API:', data);
 
         const tableBody = document.querySelector('table tbody');
-        console.log('Tabela przed dodaniem wierszy:', tableBody.innerHTML);
 
         tableBody.innerHTML = ''; // Wyczyść tabelę przed dodaniem nowych danych
 
         data.forEach(order => {
-            console.log('Przetwarzanie zamówienia:', order);
 
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -59,10 +48,7 @@ async function fetchAndPopulateTable() {
                 <td><a class="btn" href="/details/${order.order_id}">Szczegóły</a></td>
             `;
             tableBody.appendChild(row);
-            console.log('Dodano wiersz:', row.innerHTML);
         });
-
-        console.log('Tabela po dodaniu wszystkich wierszy:', tableBody.innerHTML);
 
     } catch (error) {
         console.error('Wystąpił błąd w fetchAndPopulateTable:', error);

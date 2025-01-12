@@ -1,4 +1,7 @@
 body {
+    font-family: Arial, sans-serif;
+}
+
 .table-container {
     max-width: 1200px; /* Maksymalna szerokość kontenera */
     margin: 20px auto; /* Wyśrodkowanie kontenera */
@@ -7,7 +10,9 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lekki cień dla lepszego wyglądu */
     border-radius: 8px; /* Zaokrąglone rogi */
     border: 1px solid #ddd; /* Obramowanie */
-    margin-bottom: 10px;
+    margin-bottom: -100px;
+    overflow: auto; /* Dodanie scrollowania */
+    max-height: 500px; /* Maksymalna wysokość kontenera, aby scroll był aktywny */
 }
 
 .table-container h1 {
@@ -50,6 +55,4 @@ body {
 
 .table-container .btn:hover {
     background-color: #0056b3;
-}
-
 }
