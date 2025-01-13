@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/order_list.css' %}">
+    <script src="{% static 'js/verify.js' %}" defer></script>
+    <!--<script src="{% static 'js/product_list.js' %}" defer></script>-->
+</head>
+
+<body>
+
+    <div class="button-bar">
+        <button class="redirect-button" data-url="/order_list/">Powrót</button>
+        <button class="redirect-button" data-url="">coś</button>
+    </div>
+
+    <div class="blue-bar">
+        <span class="logo">Lubella</span>
+        <a href="javascript:void(0)" class="logout">Wyloguj</a>
+        <script src="{% static 'js/logout.js' %}"></script>
+    </div>
+
+</body>
