@@ -26,7 +26,28 @@ document.getElementById('loginForm').addEventListener('submit', async function (
             alert('Zalogowano pomyślnie!');
             console.log('Token:', data.access);
             localStorage.setItem('accessToken', data.access); // Przykład zapisu tokena
-            window.location.href = '/order_list/';
+
+            // Pobierz informacje o użytkowniku
+            const userInfoResponse = await fetch('http://127.0.0.1:8000/user_info/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${data.access}`, // Dodanie tokena do nagłówków
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (userInfoResponse.ok) {
+                const userInfo = await userInfoResponse.json();
+                const userType = userInfo.user_type; // Zapisz typ użytkownika jako zmienną
+                localStorage.setItem('userType', userType); // Zapisz typ użytkownika w localStorage
+                console.log(`Typ użytkownika: ${userType}`);
+
+                // Przekierowanie do listy zamówień
+                window.location.href = '/order_list/';
+            } else {
+                document.getElementById('message').textContent = 'Nie udało się pobrać informacji o użytkowniku';
+                console.error('User Info Error:', await userInfoResponse.text());
+            }
 
         } else {
             const errorData = await response.json();
