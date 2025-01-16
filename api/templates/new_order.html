@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Lista Palet</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/new_order.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_order.css' %}">
     <script src="{% static 'js/verify.js' %}" defer></script>
     <script src="{% static 'js/new_order.js' %}"></script>
     <script>
@@ -39,7 +39,7 @@
     <div class="pallet-container">
     {% for pallet_id, compositions in grouped_compositions.items %}
         <div class="pallet-card" id="pallet-{{ pallet_id }}">
-            <h2>Paleta ID: {{ pallet_id }}</h2>
+            <h3>Paleta ID: {{ pallet_id }}</h3>
             <h3 style="text-align: right;" id="total-price-{{ pallet_id }}">Cena całkowita: 0 PLN</h3>
             <div class="product-list">
                 {% for comp in compositions %}
@@ -54,7 +54,7 @@
             </div>
             <div class="product-actions">
                 <input type="number" id="quantity-{{ pallet_id }}" min="1">
-                <button onclick="clearInput('{{ pallet_id }}')">Dodaj do koszyka</button>
+                <button onclick="addOrderAndClearInput('{{ pallet_id }}')">Dodaj do koszyka</button>
             </div>
         </div>
     {% endfor %}
