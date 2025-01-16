@@ -25,7 +25,7 @@ document.querySelectorAll(".redirect-button").forEach(button => {
 });
 
 
-//niepotrzebny prototyp
+//niczego to teoretycznie nie robi ale jak się to usunie to przestaje skrypt działać
 async function loader() {
     const token = localStorage.getItem("accessToken");
     if(token){

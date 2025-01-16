@@ -1,26 +1,20 @@
 <!DOCTYPE html>
-{% load static %}
-<html lang="pl">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Orders</title>
+    <title>storage</title>
         {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/order_list.css' %}">
     <script src="{% static 'js/verify.js' %}" defer></script>
-    <!--<script src="{% static 'js/product_list.js' %}" defer></script>-->
 </head>
-
 <body>
-
-    <div class="button-bar">
-        <button class="redirect-button" data-url="/order_list/">Powrót</button>
+<div class="button-bar">
+    <button class="redirect-button" data-url="/order_list/">Powrót</button>
     </div>
 
     <div class="blue-bar">
-        <span class="logo">Lubella</span>
-        <h2 id="userData"></h2>
+    <span class="logo">Lubella</span>
+    <h2 id="userData"></h2>
         <script>
             const userType = localStorage.getItem("userType") || "Nieznany";
             const userLogin = localStorage.getItem("user_Login") || "Brak loginu";
@@ -29,8 +23,8 @@
             const userData = document.getElementById("userData");
             userData.textContent = `Login: ${userLogin}, Typ użytkownika: ${userType}, Firma:${company_name}`;
         </script>
-        <a href="javascript:void(0)" class="logout">Wyloguj</a>
-        <script src="{% static 'js/logout.js' %}"></script>
+    <a href="javascript:void(0)" class="logout">Wyloguj</a>
+    <script src="{% static 'js/logout.js' %}"></script>
     </div>
-
 </body>
+</html>

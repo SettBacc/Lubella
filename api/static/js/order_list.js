@@ -56,3 +56,59 @@ async function fetchAndPopulateTable() {
     }
 }
 fetchAndPopulateTable()
+
+// Funkcja do generowania przycisków na podstawie typu użytkownika
+function generateButtonBar() {
+    const buttonBar = document.querySelector('.button-bar');
+
+    // Sprawdź, czy element button-bar istnieje w DOM
+    if (!buttonBar) {
+        console.error('Nie znaleziono elementu o klasie button-bar.');
+        return;
+    }
+
+    // Wyczyszczenie zawartości button-bar
+    buttonBar.innerHTML = '';
+
+    // Pobierz typ użytkownika z localStorage
+    const userType = localStorage.getItem('userType');
+
+    // Przyciski dla różnych typów użytkowników
+    const buttonsConfig = {
+        ADMIN: [
+
+            { text: 'Raporty', url: '/working_day_view/' },
+            { text: 'Magazyn', url: '/storage_room/' }
+        ],
+        CLIENT: [
+            { text: 'Dodaj nowe zamówienie', url: '/new_order/' },
+            { text: 'Lista produktów', url: '/product_list/' },
+        ],
+        default: [ // Konfiguracja domyślna
+            { text: 'Zarejestruj się', url: '/register/' },
+            { text: 'Zaloguj się', url: '/login/' }
+        ]
+    };
+
+    // Pobranie konfiguracji przycisków na podstawie userType
+    const buttons = buttonsConfig[userType] || buttonsConfig.guest;
+
+    // Tworzenie i dodawanie przycisków do button-bar
+    buttons.forEach(button => {
+        const btn = document.createElement('button');
+        btn.className = 'redirect-button';
+        btn.setAttribute('data-url', button.url);
+        btn.textContent = button.text;
+
+        // Dodanie listenera kliknięcia
+        btn.addEventListener('click', () => {
+            window.location.href = button.url;
+        });
+
+        buttonBar.appendChild(btn);
+    });
+}
+
+// Wywołanie funkcji po załadowaniu strony
+window.addEventListener('DOMContentLoaded', generateButtonBar);
+

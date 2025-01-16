@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Lista Palet</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/new_order.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="{% static 'js/verify.js' %}" defer></script>
+    <script src="{% static 'js/new_order.js' %}"></script>
     <script>
         function clearInput(palletId) {
             const inputField = document.getElementById(`quantity-${palletId}`);
@@ -21,6 +22,15 @@
 
     <div class="blue-bar">
     <span class="logo">Lubella</span>
+    <h2 id="userData"></h2>
+        <script>
+            const userType = localStorage.getItem("userType") || "Nieznany";
+            const userLogin = localStorage.getItem("user_Login") || "Brak loginu";
+            const company_name = localStorage.getItem("company_Name") || "Brak firmy";
+
+            const userData = document.getElementById("userData");
+            userData.textContent = `Login: ${userLogin}, Typ użytkownika: ${userType}, Firma:${company_name}`;
+        </script>
     <a href="javascript:void(0)" class="logout">Wyloguj</a>
     <script src="{% static 'js/logout.js' %}"></script>
     </div>
@@ -49,6 +59,6 @@
         </div>
     {% endfor %}
 </div>
-<script src="{% static 'js/product_list.js' %}"></script>
+
 </body>
 </html>

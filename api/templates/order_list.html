@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Orders</title>
+        {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/order_list.css' %}">
     <script src="{% static 'js/verify.js' %}" defer></script>
@@ -12,16 +13,24 @@
 </head>
 
 <body>
-    <div class="button-bar">
-        <button class="redirect-button" data-url="/new_order/">Dodaj nowe zamówienie</button>
-        <button class="redirect-button" data-url="/product_list/">Lista produktów</button>
-    </div>
+
+    <div class="button-bar"></div>
 
     <div class="blue-bar">
     <span class="logo">Lubella</span>
+    <h2 id="userData"></h2>
+   <script>
+            const userType = localStorage.getItem("userType") || "Nieznany";
+            const userLogin = localStorage.getItem("user_Login") || "Brak loginu";
+            const company_name = localStorage.getItem("company_Name") || "Brak firmy";
+
+            const userData = document.getElementById("userData");
+            userData.textContent = `Login: ${userLogin}, Typ użytkownika: ${userType}, Firma:${company_name}`;
+        </script>
     <a href="javascript:void(0)" class="logout">Wyloguj</a>
     <script src="{% static 'js/logout.js' %}"></script>
-    </div>
+</div>
+
 
     <div class="table-container">
         <h1>Tabela Zamówień</h1>
@@ -32,7 +41,7 @@
                         <th>Data</th>
                         <th>Liczba Palet</th>
                         <th>Id Palet</th>
-                        <th>Cena Palet</th>
+                        <th>Status</th>
                         <th>Akcja</th>
                     </tr>
                 </thead>

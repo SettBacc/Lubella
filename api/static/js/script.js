@@ -40,7 +40,15 @@ document.getElementById('loginForm').addEventListener('submit', async function (
                 const userInfo = await userInfoResponse.json();
                 const userType = userInfo.user_type; // Zapisz typ użytkownika jako zmienną
                 localStorage.setItem('userType', userType); // Zapisz typ użytkownika w localStorage
-                console.log(`Typ użytkownika: ${userType}`);
+
+                const company_Name = userInfo.company_name;
+                localStorage.setItem('company_Name', company_Name);
+
+                const user_Country = userInfo.country;
+                localStorage.setItem('user_Country', user_Country);
+
+                const user_Login = userInfo.login;
+                localStorage.setItem('user_Login', user_Login);
 
                 // Przekierowanie do listy zamówień
                 window.location.href = '/order_list/';

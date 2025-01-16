@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/add_working_day.css' %}">
+    <script src="{% static 'js/verify.js' %}" defer></script>
+    <script src="{% static 'js/add_working_day.js' %}" defer></script>
+    <title>Add Working Day</title>
+</head>
+<body>
+
+<div class="button-bar">
+    <button class="redirect-button" data-url="/working_day_view/">Powrót</button>
+    </div>
+
+    <div class="blue-bar">
+    <span class="logo">Lubella</span>
+    <h2 id="userData"></h2>
+        <script>
+            const userType = localStorage.getItem("userType") || "Nieznany";
+            const userLogin = localStorage.getItem("user_Login") || "Brak loginu";
+            const company_name = localStorage.getItem("company_Name") || "Brak firmy";
+
+            const userData = document.getElementById("userData");
+            userData.textContent = `Login: ${userLogin}, Typ użytkownika: ${userType}, Firma:${company_name}`;
+        </script>
+    <a href="javascript:void(0)" class="logout">Wyloguj</a>
+    <script src="{% static 'js/logout.js' %}"></script>
+    </div>
+
+    <h3>Dodawanie raportu</h3>
+
+    <form id="workingDayForm" method="POST">
+        <label for="work_date">Dzień pracy:</label>
+        <input type="date" id="work_date" name="work_date" required><br><br>
+
+        <label for="shift_nr">Numer zmiany:</label>
+        <input type="number" id="shift_nr" name="shift_nr" min="1" max="9" required><br><br>
+
+        <label for="workers">Pracownik:</label>
+        <input type="number" id="workers" name="workers" min="1" required><br><br>
+
+        <label for="made_pallets">Przerobione palety:</label>
+        <input type="number" id="made_pallets" name="made_pallets" min="1" required><br><br>
+
+        <label for="pallet_id">Numer ID palety:</label>
+        <input type="number" id="pallet_id" name="pallet_id" min="1" required><br><br>
+
+        <button type="submit">Zgłoś</button>
+    </form>
+</body>
+</html>

@@ -253,7 +253,7 @@ def add_working_day(request):
             return redirect('storage_list')  # Przekierowanie do listy magazynów
     else:
         form = WorkingDayForm()
-    return render(request, 'working_day.html', {'form': form})
+    return render(request, 'add_working_day.html', {'form': form})
 
 # Funkcja od strony od registracji
 def reg(request):
@@ -276,11 +276,6 @@ def product_list(request):
 def order_list(request):
     return render(request, 'order_list.html')
 
-# Funkcja od strony z widokiem Admina
-def admin_menu(request):
-    return render(request, 'admin_menu.html')
-
-#
 def new_order(request):
     # Pobranie wszystkich rekordów Composition z grupowaniem według pallet_id
     compositions = Composition.objects.all().select_related('product_id')
@@ -293,3 +288,11 @@ def new_order(request):
         grouped_compositions[comp.pallet_id].append(comp)
     return render(request, 'new_order.html', {'grouped_compositions': grouped_compositions})
 
+def storage_room(request):
+    return render(request, 'storage_room.html')
+
+def working_day_view(request):
+    return render(request, 'working_day_view.html')
+
+def details_info(request):
+    return render(request, 'details_info.html')
