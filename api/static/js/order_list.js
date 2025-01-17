@@ -45,7 +45,7 @@ async function fetchAndPopulateTable() {
                 <td>${order.number_of_pallets}</td>
                 <td>${order.pallet_id}</td>
                 <td>${order.order_status}</td>
-                <td><a class="btn" href="/details/${order.order_id}">Szczegóły</a></td>
+                <td><a class="btn" href="/details_info/${order.order_id}/">Szczegóły</a></td>
             `;
             tableBody.appendChild(row);
         });

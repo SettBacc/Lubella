@@ -1,6 +1,6 @@
 # views.py
 from telnetlib import AUTHENTICATION
-
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -294,5 +294,9 @@ def storage_room(request):
 def working_day_view(request):
     return render(request, 'working_day_view.html')
 
-def details_info(request):
-    return render(request, 'details_info.html')
+def details_info(request, order_id):
+    # Przekazujemy zmienną `order_id` jako wartość do filtra `get` lub `get_object_or_404`
+    order = get_object_or_404(Orders, order_id=order_id)
+
+    # Renderujemy szablon
+    return render(request, 'details_info.html', {'order': order})

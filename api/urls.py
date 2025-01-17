@@ -17,5 +17,5 @@ urlpatterns = [
     path('new_order/', new_order, name='new_order'),
     path('storage_room/', storage_room, name='storage_room'),
     path('working_day_view/', working_day_view, name='working_day_view'),
-    path('details_info/', details_info, name='details_info'),
+    path('details_info/<int:order_id>/', details_info, name='details_info'),
 ]
