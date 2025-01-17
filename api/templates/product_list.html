@@ -7,9 +7,9 @@
     <title>Orders</title>
         {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/order_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
     <script src="{% static 'js/verify.js' %}" defer></script>
-    <!--<script src="{% static 'js/product_list.js' %}" defer></script>-->
+    <script src="{% static 'js/product_list.js' %}" defer></script>
 </head>
 
 <body>
@@ -32,5 +32,13 @@
         <a href="javascript:void(0)" class="logout">Wyloguj</a>
         <script src="{% static 'js/logout.js' %}"></script>
     </div>
+
+   <div class="product-table-container">
+    <h2>Lista produktów</h2>
+      <div id="products-container"></div>
+        <!-- Wiersze i kolumny tabeli -->
+    </table>
+</div>
+
 
 </body>
