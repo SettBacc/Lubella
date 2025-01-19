@@ -1,0 +1,78 @@
+#order-details {
+  margin: auto;
+  padding: 20px;
+  width: 1000px;
+  height: 400px; /* Stała wysokość kontenera */
+
+  background-color: #f8f9fa; /* Jasnoszare tło */
+  border: 1px solid #dee2e6; /* Delikatna ramka */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtelny cień */
+  overflow-y: auto; /* Przewijanie w pionie */
+  overflow-x: hidden; /* Ukrycie przewijania w poziomie */
+}
+
+
+/* Pasek przewijania (opcjonalne dostosowanie) */
+#order-details::-webkit-scrollbar {
+  width: 8px; /* Szerokość paska przewijania */
+}
+
+#order-details::-webkit-scrollbar-thumb {
+  background-color: #ced4da; /* Kolor suwaka */
+  border-radius: 4px;
+}
+
+#order-details::-webkit-scrollbar-thumb:hover {
+  background-color: #adb5bd; /* Kolor suwaka po najechaniu */
+}
+
+/* Pojedynczy element zamówienia */
+.order-item {
+  background-color: #fffbea; /* Jasny beż */
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ececec; /* Subtelna ramka */
+  border-radius: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Główne kontenery */
+#main-container {
+width: 90%;
+  display: flex;
+  justify-content:flex-end;
+  flex-direction:center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  position: relative;
+  margin-top: 200px;
+  right: 100px;
+}
+
+#order-status-container {
+    height: 400px; /* Stała wysokość kontenera */
+    width:170px;
+  height: 400px; /* Stała wysokość kontenera */
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+h3 {
+display:flex;
+  text-align: center; /* Wyśrodkowanie tekstu */
+  font-size: 24px; /* Większy rozmiar czcionki */
+  color: #343a40; /* Ciemny kolor tekstu */
+  margin-bottom: 20px; /* Zwiększony odstęp między nagłówkiem a głównym kontenerem */
+  font-weight: bold; /* Pogrubienie tekstu */
+  position:relative;
+  top:-200px;
+  right: -650px;
+
+}

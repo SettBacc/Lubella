@@ -5,11 +5,14 @@
     <title>storage</title>
         {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/storage_room.css' %}">
     <script src="{% static 'js/verify.js' %}" defer></script>
+    <script src="{% static 'js/storage_room.js' %}" defer></script>
 </head>
 <body>
 <div class="button-bar">
     <button class="redirect-button" data-url="/order_list/">Powrót</button>
+    <button class="redirect-button" data-url="/product_list/">Lista produktów</button>
     </div>
 
     <div class="blue-bar">
@@ -26,5 +29,13 @@
     <a href="javascript:void(0)" class="logout">Wyloguj</a>
     <script src="{% static 'js/logout.js' %}"></script>
     </div>
+
+<div id="main-container">
+        <h3>Storage Details</h3>
+        <div id="order-details">
+            <!-- Dane będą renderowane tutaj przez JavaScript -->
+        </div>
+    </div>
+
 </body>
 </html>

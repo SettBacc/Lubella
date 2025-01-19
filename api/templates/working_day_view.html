@@ -5,7 +5,9 @@
     <title>working_day_view</title>
       {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/working_day_view.css' %}">
     <script src="{% static 'js/verify.js' %}" defer></script>
+    <script src="{% static 'js/working_day_view.js' %}" defer></script>
 </head>
 <body>
 <div class="button-bar">
@@ -27,5 +29,25 @@
     <a href="javascript:void(0)" class="logout">Wyloguj</a>
     <script src="{% static 'js/logout.js' %}"></script>
     </div>
+
+    <div class="product-table-container">
+    <h2>Working Day Data</h2>
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>Shift Work ID</th>
+                <th>Work Date</th>
+                <th>Shift Number</th>
+                <th>Workers</th>
+                <th>Made Pallets</th>
+                <th>Pallet ID</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- Rows will be populated dynamically -->
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>

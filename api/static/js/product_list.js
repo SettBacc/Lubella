@@ -50,10 +50,6 @@ function createProductTable(groupedProducts) {
         const palletDiv = document.createElement('div');
         palletDiv.classList.add('pallet');
 
-        const title = document.createElement('h3');
-        title.textContent = `Pallet ID: ${palletId}`;
-        palletDiv.appendChild(title);
-
         const table = document.createElement('table');
         table.classList.add('product-table');
 
@@ -89,6 +85,55 @@ function createProductTable(groupedProducts) {
     }
 }
 
+function generateButtonBar() {
+    const buttonBar = document.querySelector('.button-bar');
+
+    // Sprawdź, czy element button-bar istnieje w DOM
+    if (!buttonBar) {
+        console.error('Nie znaleziono elementu o klasie button-bar.');
+        return;
+    }
+
+    // Wyczyszczenie zawartości button-bar
+    buttonBar.innerHTML = '';
+
+    // Pobierz typ użytkownika z localStorage
+    const userType = localStorage.getItem('userType');
+
+    // Przyciski dla różnych typów użytkowników
+    const buttonsConfig = {
+        ADMIN: [
+
+            { text: 'Powrót', url: '/storage_room/' },
+        ],
+        CLIENT: [
+            { text: 'Powrót', url: '/order_list/' },
+        ],
+        default: [ // Konfiguracja domyślna
+            { text: 'Zarejestruj się', url: '/register/' },
+            { text: 'Zaloguj się', url: '/login/' }
+        ]
+    };
+
+    // Pobranie konfiguracji przycisków na podstawie userType
+    const buttons = buttonsConfig[userType] || buttonsConfig.guest;
+
+    // Tworzenie i dodawanie przycisków do button-bar
+    buttons.forEach(button => {
+        const btn = document.createElement('button');
+        btn.className = 'redirect-button';
+        btn.setAttribute('data-url', button.url);
+        btn.textContent = button.text;
+
+        // Dodanie listenera kliknięcia
+        btn.addEventListener('click', () => {
+            window.location.href = button.url;
+        });
+
+        buttonBar.appendChild(btn);
+    });
+}
+window.addEventListener('DOMContentLoaded', generateButtonBar);
 // Wywołaj funkcję fetchProducts podczas ładowania strony
 document.addEventListener('DOMContentLoaded', () => {
     fetchProducts();

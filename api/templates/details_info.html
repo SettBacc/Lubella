@@ -5,7 +5,9 @@
     <title>details_info</title>
       {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/details_info.css' %}">
     <script src="{% static 'js/verify.js' %}" defer></script>
+    <script src="{% static 'js/details_info.js' %}" defer></script>
 </head>
 <body>
     <div class="button-bar">
@@ -26,5 +28,26 @@
     <a href="javascript:void(0)" class="logout">Wyloguj</a>
     <script src="{% static 'js/logout.js' %}"></script>
     </div>
+
+<h3>Szczegóły:</h3>
+
+    <div id="main-container">
+
+        <!-- Lewa sekcja: Szczegóły zamówienia -->
+        <div id="order-details">
+            <!-- Szczegóły zamówienia wypełniane dynamicznie -->
+        </div>
+
+        <!-- Prawa sekcja -->
+        <div id="order-status-container">
+            <div id="order-status">
+            <p>ID zamówienia: <span id="order-id"></span></p>
+            <p>ID palety: <span id="pallet-id"></span></p>
+            <p>Status: <span id="status-text"></span></p>
+            <button id="delete-order-button" data-order-id="">Usuń zamówienie</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

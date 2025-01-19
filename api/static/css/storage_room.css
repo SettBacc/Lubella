@@ -1,0 +1,77 @@
+#main-container {
+max-height:500px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 40px;
+  padding-bottom: 140px;
+  padding-top:120px;
+  background-color: #e9ecef; /* Jasne tło */
+  border-radius: 10px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+#order-details {
+  width: 80%;
+  max-width: 1200px;
+  background-color: #ffffff; /* Białe tło */
+  border: 2px solid #ced4da;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Przewijanie */
+  max-height: 400px; /* Maksymalna wysokość */
+}
+
+#order-details::-webkit-scrollbar {
+  width: 10px;
+}
+
+#order-details::-webkit-scrollbar-thumb {
+  background: #6c757d; /* Ciemnoszary suwak */
+  border-radius: 5px;
+}
+
+#order-details::-webkit-scrollbar-thumb:hover {
+  background: #495057; /* Kolor po najechaniu */
+}
+
+/* Pojedynczy element zamówienia */
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #f8f9fa; /* Jasnoszare tło */
+  padding: 15px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.order-item:hover {
+  transform: scale(1.02); /* Powiększenie przy najechaniu */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.order-item strong {
+  font-size: 1rem;
+  color: #343a40; /* Ciemnoszary tekst */
+}
+
+.order-item div {
+  flex: 1;
+  text-align: center;
+}
+
+/* Nagłówek */
+h3 {
+  font-size: 28px;
+  text-align: center;
+  color: #212529; /* Bardzo ciemnoszary */
+  margin-bottom: 20px;
+  font-weight: bold;
+}
