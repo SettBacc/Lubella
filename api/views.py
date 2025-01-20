@@ -158,7 +158,12 @@ class OrdersDetails(APIView):
             return Response({"error": "Order not found or you do not have permission to edit it."}, status=404)
 
         data = request.data
+        print(data)
         data['order_date'] = date.today()  # Aktualizacja daty zamówienia
+
+        if request.user.user_type == 'CLIENT':
+            data['user'] = order.user.id
+            data['order_status'] = order.order_status
 
         if request.user.user_type == 'ADMIN':
             data['user'] = order.user.id  # Powiązanie z oryginalnym użytkownikiem do aktualizacji jego zamówienia

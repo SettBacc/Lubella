@@ -11,12 +11,12 @@
 </head>
 <body>
     <div class="button-bar">
-    <button class="redirect-button" data-url="/order_list/">Powrót</button>
+        <button class="redirect-button" data-url="/order_list/">Powrót</button>
     </div>
 
     <div class="blue-bar">
-    <span class="logo">Lubella</span>
-    <h2 id="userData"></h2>
+        <span class="logo">Lubella</span>
+        <h2 id="userData"></h2>
         <script>
             const userType = localStorage.getItem("userType") || "Nieznany";
             const userLogin = localStorage.getItem("user_Login") || "Brak loginu";
@@ -25,14 +25,13 @@
             const userData = document.getElementById("userData");
             userData.textContent = `Login: ${userLogin}, Typ użytkownika: ${userType}, Firma:${company_name}`;
         </script>
-    <a href="javascript:void(0)" class="logout">Wyloguj</a>
-    <script src="{% static 'js/logout.js' %}"></script>
+        <a href="javascript:void(0)" class="logout">Wyloguj</a>
+        <script src="{% static 'js/logout.js' %}"></script>
     </div>
 
-<h3>Szczegóły:</h3>
+    <h3>Szczegóły:</h3>
 
     <div id="main-container">
-
         <!-- Lewa sekcja: Szczegóły zamówienia -->
         <div id="order-details">
             <!-- Szczegóły zamówienia wypełniane dynamicznie -->
@@ -41,13 +40,21 @@
         <!-- Prawa sekcja -->
         <div id="order-status-container">
             <div id="order-status">
-            <p>ID zamówienia: <span id="order-id"></span></p>
-            <p>ID palety: <span id="pallet-id"></span></p>
-            <p>Status: <span id="status-text"></span></p>
-            <button id="delete-order-button" data-order-id="">Usuń zamówienie</button>
+                <p>ID zamówienia: <span id="order-id"></span></p>
+                <p>ID palety: <span id="pallet-id"></span></p>
+                <p>Liczba palet: <span id="pallet-count"></span></p>
+                <p id="edit-pallet-id-container" style="display:none;">Edytuj ID palety: <input type="number" id="edit-pallet-id" min="1" step="1"></p>
+                <p id="edit-pallet-count-container" style="display:none;">Edytuj liczbę palet: <input type="number" id="edit-pallet-count" min="1" step="1"></p>
+
+                <!-- Dodajemy kontener do dynamicznej edycji statusu -->
+                <div id="status-container">
+                    <!-- Status: {rubryka do zmiany statusu} -->
+                </div>
+                <div id="buttons-container">
+                    <!-- Przyciski będą dynamicznie dodawane tutaj -->
+                </div>
             </div>
         </div>
     </div>
-
 </body>
 </html>

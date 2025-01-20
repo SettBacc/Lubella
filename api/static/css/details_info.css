@@ -76,3 +76,9 @@ display:flex;
   right: -650px;
 
 }
+button#edit-pallet-button {
+    margin-bottom: 10px;
+}
+button#submit-status-change {
+    margin-top: 10px;
+}

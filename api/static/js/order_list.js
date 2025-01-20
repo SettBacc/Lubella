@@ -47,7 +47,7 @@ async function fetchAndPopulateTable() {
                 <td>${order.order_status}</td>
                 <td>
                 <a class="btn" href="/details_info/${order.order_id}/"
-                onclick="saveOrderDetailsToLocalStorage(${order.order_id}, '${order.order_status}', ${order.pallet_id})">Szczegóły</a>
+                onclick="saveOrderDetailsToLocalStorage(${order.order_id}, '${order.order_status}', ${order.pallet_id}, ${order.number_of_pallets})">Szczegóły</a>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -112,10 +112,11 @@ function generateButtonBar() {
     });
 }
 
-function saveOrderDetailsToLocalStorage(orderId, orderStatus, palletId) {
+function saveOrderDetailsToLocalStorage(orderId, orderStatus, palletId, number_of_pallets) {
     localStorage.setItem('orderId', orderId);
     localStorage.setItem('orderStatus', orderStatus);
     localStorage.setItem('palletId', palletId);
+    localStorage.setItem('number_of_pallets', number_of_pallets);
 }
 
 // Wywołanie funkcji po załadowaniu strony
