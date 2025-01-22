@@ -12,7 +12,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
     try {
         // Wyślij żądanie POST do backendu
-        const response = await fetch('http://127.0.0.1:8000/login/', {
+        console.log(ip_address)
+        const response = await fetch(`${ip_address}login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,7 +29,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
             localStorage.setItem('accessToken', data.access); // Przykład zapisu tokena
 
             // Pobierz informacje o użytkowniku
-            const userInfoResponse = await fetch('http://127.0.0.1:8000/user_info/', {
+            const userInfoResponse = await fetch(`${ip_address}user_info/`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${data.access}`, // Dodanie tokena do nagłówków

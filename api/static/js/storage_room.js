@@ -1,6 +1,6 @@
 // Pobieranie danych z endpointu i renderowanie na stronie
 document.addEventListener('DOMContentLoaded', () => {
-    const endpointUrl = 'http://127.0.0.1:8000/storage/';
+    const endpointUrl = `${ip_address}storage/`;
     const token = localStorage.getItem('accessToken');
 
     const fetchData = async () => {

@@ -1,5 +1,5 @@
 // Adres URL endpointu
-const apiUrl = 'http://127.0.0.1:8000/products/';
+const apiUrl = `${ip_address}products/`;
 
 // Twój access token
 const token = localStorage.getItem('accessToken');

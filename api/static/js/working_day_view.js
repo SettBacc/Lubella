@@ -1,5 +1,5 @@
 async function fetchWorkingDayData() {
-    const url = 'http://127.0.0.1:8000/working_day/';
+    const url = `${ip_address}working_day/`;
     const token = localStorage.getItem("accessToken"); // Replace with your actual token
 
     try {
