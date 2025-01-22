@@ -32,7 +32,7 @@ async function loader() {
 
         //load info about user's orders
          try {
-            const response = await fetch('http://127.0.0.1:8000/orders/', {
+            const response = await fetch(`${ip_address}orders/`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`

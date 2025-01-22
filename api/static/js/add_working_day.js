@@ -18,7 +18,7 @@ document.getElementById('workingDayForm').addEventListener('submit', async funct
 const token = localStorage.getItem('accessToken');
     try {
         // Wyślij żądanie POST do backendu
-        const response = await fetch('http://127.0.0.1:8000/working_day/', {
+        const response = await fetch(`${ip_address}working_day/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

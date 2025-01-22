@@ -1,5 +1,5 @@
 async function fetchOrderDetails(orderId) {
-  url = `http://127.0.0.1:8000/orders/details/${orderId}/`;
+  url = `${ip_address}orders/details/${orderId}/`;
 
   const token = localStorage.getItem('accessToken');
 
@@ -133,7 +133,7 @@ function displayStatusEditor() {
         const newStatus = statusSelect.value; // Pobierz wybrany status
         const token = localStorage.getItem('accessToken'); // Pobierz token z localStorage
         const orderId = localStorage.getItem('orderId'); // Pobierz ID zamówienia
-        const url = `http://127.0.0.1:8000/orders/details/${orderId}/`;
+        const url = `${ip_address}orders/details/${orderId}/`;
 
         if (!token || !orderId) {
             alert('Brak danych do edytowania zamówienia.');
@@ -208,7 +208,7 @@ function createDeleteOrderButton() {
     // Przygotowanie przycisku
     const deleteButton = createButton('delete-order-button', 'Usuń zamówienie', async () => {
         const orderId = localStorage.getItem('orderId'); // Pobierz ID zamówienia z localStorage
-        const endpoint = `http://127.0.0.1:8000/orders/details/${orderId}/`;
+        const endpoint = `${ip_address}orders/details/${orderId}/`;
 
         try {
             // Wyślij żądanie DELETE do API
@@ -267,7 +267,7 @@ function createEditPalletButton() {
         }
 
         // Wysłanie danych do API (przykład endpointu - może się różnić)
-        const endpoint = `http://127.0.0.1:8000/orders/details/${orderId}/`;
+        const endpoint = `${ip_address}orders/details/${orderId}/`;
 
         try {
             const response = await fetch(endpoint, {

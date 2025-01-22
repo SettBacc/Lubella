@@ -3,3 +3,4 @@ python-dotenv
 oracledb
 djangorestframework
 djangorestframework-simplejwt
+django-cors-headers

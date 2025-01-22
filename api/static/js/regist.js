@@ -22,7 +22,7 @@ document.getElementById('register-form').addEventListener('submit', async functi
 
     try {
         // Wyślij żądanie POST do backendu
-        const response = await fetch('http://127.0.0.1:8000/reg/', {
+        const response = await fetch(`${ip_address}reg/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

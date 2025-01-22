@@ -1,5 +1,6 @@
 async function fetchAndPopulateTable() {
-    const endpointUrl = 'http://127.0.0.1:8000/orders/';
+    console.log(ip_address)
+    const endpointUrl = `${ip_address}orders/`;
     const token = localStorage.getItem('accessToken');
 
     if (!token) {
@@ -31,12 +32,15 @@ async function fetchAndPopulateTable() {
         }
 
         const data = await response.json();
+        console.log(data)
 
         const tableBody = document.querySelector('table tbody');
 
         tableBody.innerHTML = ''; // Wyczyść tabelę przed dodaniem nowych danych
 
-        data.forEach(order => {
+        for (const order of data) {
+            const price = await fetchOrderPrice(order.order_id);
+            console.log(price);
 
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -44,6 +48,7 @@ async function fetchAndPopulateTable() {
                 <td>${order.order_date}</td>
                 <td>${order.number_of_pallets}</td>
                 <td>${order.pallet_id}</td>
+                <td>${Math.round(order.number_of_pallets*price)} $</td>
                 <td>${order.order_status}</td>
                 <td>
                 <a class="btn" href="/details_info/${order.order_id}/"
@@ -51,7 +56,8 @@ async function fetchAndPopulateTable() {
                 </td>
             `;
             tableBody.appendChild(row);
-        });
+
+        };
 
     } catch (error) {
         console.error('Wystąpił błąd w fetchAndPopulateTable:', error);
@@ -59,6 +65,46 @@ async function fetchAndPopulateTable() {
     }
 }
 fetchAndPopulateTable()
+
+async function fetchOrderPrice(orderId) {
+  url = `${ip_address}orders/details/${orderId}/`;
+
+  const token = localStorage.getItem('accessToken');
+
+  if (!token) {
+    console.error('Bearer token is missing. Please authenticate.');
+    return;
+  }
+
+  let price = 0;
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      console.error(`HTTP error! status: ${response.status}`);
+      return;
+    }
+
+    const data = await response.json();
+    console.log(orderId)
+    console.log(data)
+
+    data.forEach((e) => {
+        price += Number(e.number_of_products)*Number(e.product_id.price);
+    });
+  } catch (error) {
+    console.error('Wystąpił błąd podczas pobierania danych:', error);
+  }
+
+  return price;
+}
 
 // Funkcja do generowania przycisków na podstawie typu użytkownika
 function generateButtonBar() {
