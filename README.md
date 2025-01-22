@@ -48,7 +48,7 @@ przez klientów zewnętrznych firm oraz umożliwi monitorowanie stanu magazynu l
 
 5. Uruchom aplikację:
     ```
-    python manage.py runserver
+    python manage.py runserver 0.0.0.0:8000
     ```
 
 
