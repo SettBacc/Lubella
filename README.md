@@ -47,6 +47,11 @@ przez klientów zewnętrznych firm oraz umożliwi monitorowanie stanu magazynu l
 4. Skonfiguruj bazę danych i zmienne środowiskowe.
 
 5. Uruchom aplikację:
+   Dla serwera lokalnego
+   ```
+    python manage.py runserver
+    ```
+   Dla serwera publicznego - należy zmienić adres na publiczny w pliku address.js
     ```
     python manage.py runserver 0.0.0.0:8000
     ```
