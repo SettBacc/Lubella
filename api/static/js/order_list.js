@@ -48,7 +48,7 @@ async function fetchAndPopulateTable() {
                 <td>${order.order_date}</td>
                 <td>${order.number_of_pallets}</td>
                 <td>${order.pallet_id}</td>
-                <td>${Math.round(order.number_of_pallets*price)} $</td>
+                <td>${Math.round(order.number_of_pallets*price)} PLN</td>
                 <td>${order.order_status}</td>
                 <td>
                 <a class="btn" href="/details_info/${order.order_id}/"
