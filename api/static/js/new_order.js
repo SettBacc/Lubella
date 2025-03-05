@@ -100,6 +100,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Zaktualizuj cenę całkowitą palety
         const totalPriceElement = document.getElementById(`total-price-${palletId}`);
-        totalPriceElement.textContent = `Cena całkowita: ${totalPrice.toFixed(2)} PLN`;
+        totalPriceElement.textContent = `Total cost: ${totalPrice.toFixed(2)} $`;
+
+        if (userType === "ADMIN") {
+            const productActions = pallet.querySelector(".product-actions");
+            if (productActions) {
+                productActions.remove(); // Usuwa cały div z inputem i przyciskiem
+            }
+        }
     });
 });

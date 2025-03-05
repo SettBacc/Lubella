@@ -26,25 +26,25 @@
             const company_name = localStorage.getItem("company_Name") || "Brak firmy";
 
             const userData = document.getElementById("userData");
-            userData.textContent = `Login: ${userLogin}, Typ użytkownika: ${userType}, Firma:${company_name}`;
+            userData.textContent = `Login: ${userLogin} | User type: ${userType} | Company:${company_name}`;
         </script>
-    <a href="javascript:void(0)" class="logout">Wyloguj</a>
+    <a href="javascript:void(0)" class="logout">Logout</a>
     <script src="{% static 'js/logout.js' %}"></script>
 </div>
 
 
     <div class="table-container">
-        <h1>Tabela Zamówień</h1>
+        <h1>Order Table</h1>
             <table>
                 <thead>
                     <tr>
-                        <th>Id Zamówienia</th>
-                        <th>Data</th>
-                        <th>Liczba Palet</th>
-                        <th>Id Palet</th>
-                        <th>Cena Zamówienia</th>
+                        <th>Order ID</th>
+                        <th>Order date</th>
+                        <th>Number of pallets</th>
+                        <th>Pallet ID</th>
+                        <th>Price</th>
                         <th>Status</th>
-                        <th>Akcja</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

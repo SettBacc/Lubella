@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="button-bar">
-        <button class="redirect-button" data-url="/order_list/">Powrót</button>
+        <button class="redirect-button" data-url="/order_list/">Back</button>
     </div>
 
     <div class="blue-bar">
@@ -24,13 +24,13 @@
             const company_name = localStorage.getItem("company_Name") || "Brak firmy";
 
             const userData = document.getElementById("userData");
-            userData.textContent = `Login: ${userLogin}, Typ użytkownika: ${userType}, Firma:${company_name}`;
+            userData.textContent = `Login: ${userLogin} | User type: ${userType} | Company:${company_name}`;
         </script>
-        <a href="javascript:void(0)" class="logout">Wyloguj</a>
+        <a href="javascript:void(0)" class="logout">Logout</a>
         <script src="{% static 'js/logout.js' %}"></script>
     </div>
 
-    <h3>Szczegóły:</h3>
+    <h3>Details:</h3>
 
     <div id="main-container">
         <!-- Lewa sekcja: Szczegóły zamówienia -->
@@ -41,11 +41,11 @@
         <!-- Prawa sekcja -->
         <div id="order-status-container">
             <div id="order-status">
-                <p>ID zamówienia: <span id="order-id"></span></p>
-                <p>ID palety: <span id="pallet-id"></span></p>
-                <p>Liczba palet: <span id="pallet-count"></span></p>
-                <p id="edit-pallet-id-container" style="display:none;">Edytuj ID palety: <input type="number" id="edit-pallet-id" min="1" step="1"></p>
-                <p id="edit-pallet-count-container" style="display:none;">Edytuj liczbę palet: <input type="number" id="edit-pallet-count" min="1" step="1"></p>
+                <p>Order ID: <span id="order-id"></span></p>
+                <p>Pallet ID: <span id="pallet-id"></span></p>
+                <p>Number of pallets: <span id="pallet-count"></span></p>
+                <p id="edit-pallet-id-container" style="display:none;">Edit pallet ID: <input type="number" id="edit-pallet-id" min="1" step="1"></p>
+                <p id="edit-pallet-count-container" style="display:none;">Edit number of pallets: <input type="number" id="edit-pallet-count" min="1" step="1"></p>
 
                 <!-- Dodajemy kontener do dynamicznej edycji statusu -->
                 <div id="status-container">

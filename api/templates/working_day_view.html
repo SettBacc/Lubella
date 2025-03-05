@@ -12,8 +12,8 @@
 </head>
 <body>
 <div class="button-bar">
-    <button class="redirect-button" data-url="/order_list/">Powrót</button>
-    <button class="redirect-button" data-url="/add_working_day/">Dodaj raport</button>
+    <button class="redirect-button" data-url="/order_list/">Back</button>
+    <button class="redirect-button" data-url="/add_working_day/">Create new raport</button>
     </div>
 
     <div class="blue-bar">
@@ -25,14 +25,14 @@
             const company_name = localStorage.getItem("company_Name") || "Brak firmy";
 
             const userData = document.getElementById("userData");
-            userData.textContent = `Login: ${userLogin}, Typ użytkownika: ${userType}, Firma:${company_name}`;
+            userData.textContent = `Login: ${userLogin} | User type: ${userType} | Company:${company_name}`;
         </script>
-    <a href="javascript:void(0)" class="logout">Wyloguj</a>
+    <a href="javascript:void(0)" class="logout">Logout</a>
     <script src="{% static 'js/logout.js' %}"></script>
     </div>
 
     <div class="product-table-container">
-    <h2>Working Day Data</h2>
+    <h2>Working Day - Raports</h2>
     <table class="product-table">
         <thead>
             <tr>

@@ -48,11 +48,11 @@ async function fetchAndPopulateTable() {
                 <td>${order.order_date}</td>
                 <td>${order.number_of_pallets}</td>
                 <td>${order.pallet_id}</td>
-                <td>${Math.round(order.number_of_pallets*price)} PLN</td>
+                <td>${Math.round(order.number_of_pallets*price)} $</td>
                 <td>${order.order_status}</td>
                 <td>
                 <a class="btn" href="/details_info/${order.order_id}/"
-                onclick="saveOrderDetailsToLocalStorage(${order.order_id}, '${order.order_status}', ${order.pallet_id}, ${order.number_of_pallets})">Szczegóły</a>
+                onclick="saveOrderDetailsToLocalStorage(${order.order_id}, '${order.order_status}', ${order.pallet_id}, ${order.number_of_pallets})">Details</a>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -126,16 +126,17 @@ function generateButtonBar() {
     const buttonsConfig = {
         ADMIN: [
 
-            { text: 'Raporty', url: '/working_day_view/' },
-            { text: 'Magazyn', url: '/storage_room/' }
+            { text: 'Raports', url: '/working_day_view/' },
+            { text: 'Pallet List', url: '/new_order/' },
+            { text: 'Storage', url: '/storage_room/' }
         ],
         CLIENT: [
-            { text: 'Dodaj nowe zamówienie', url: '/new_order/' },
-            { text: 'Lista produktów', url: '/product_list/' },
+            { text: 'Add new order', url: '/new_order/' },
+            { text: 'Product list', url: '/product_list/' },
         ],
         default: [ // Konfiguracja domyślna
-            { text: 'Zarejestruj się', url: '/register/' },
-            { text: 'Zaloguj się', url: '/login/' }
+            { text: 'Sign up', url: '/register/' },
+            { text: 'Log in', url: '/login/' }
         ]
     };
 
