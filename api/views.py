@@ -97,10 +97,10 @@ class OrdersListView(APIView):
         print(request.user.country)
         if request.user.user_type == 'ADMIN':
             # Admin widzi wszystkie zamówienia
-            orders = Orders.objects.all()
+            orders = Orders.objects.all().order_by('-order_date')
         elif request.user.user_type == 'CLIENT':
             # Klient widzi tylko swoje zamówienia
-            orders = Orders.objects.filter(user=request.user)
+            orders = Orders.objects.filter(user=request.user).order_by('-order_date')
         serializer = OrdersSerializer(orders, many=True)  # Serializacja zamówień
         return Response(serializer.data)  # Dane zwracane w formacie Json
 
@@ -212,7 +212,7 @@ class WorkingDayListView(APIView):
     # Pobranie wszystkich produktów z tabeli WORKING_DAY
     def get(self, request):  # Żądanie GET
         if request.user.user_type == 'ADMIN':
-            working_day = WorkingDay.objects.all()
+            working_day = WorkingDay.objects.all().order_by('-work_date')
             serializer = WorkingDaySerializer(working_day, many=True)
             return Response(serializer.data)
 

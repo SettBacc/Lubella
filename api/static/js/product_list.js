@@ -104,14 +104,14 @@ function generateButtonBar() {
     const buttonsConfig = {
         ADMIN: [
 
-            { text: 'Powrót', url: '/storage_room/' },
+            { text: 'Back', url: '/storage_room/' },
         ],
         CLIENT: [
-            { text: 'Powrót', url: '/order_list/' },
+            { text: 'Back', url: '/order_list/' },
         ],
         default: [ // Konfiguracja domyślna
-            { text: 'Zarejestruj się', url: '/register/' },
-            { text: 'Zaloguj się', url: '/login/' }
+            { text: 'Sign up', url: '/register/' },
+            { text: 'Log in', url: '/login/' }
         ]
     };
 

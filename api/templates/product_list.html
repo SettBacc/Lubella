@@ -27,14 +27,14 @@
             const company_name = localStorage.getItem("company_Name") || "Brak firmy";
 
             const userData = document.getElementById("userData");
-            userData.textContent = `Login: ${userLogin}, Typ użytkownika: ${userType}, Firma:${company_name}`;
+            userData.textContent = `Login: ${userLogin} | User type: ${userType} | Company:${company_name}`;
         </script>
-        <a href="javascript:void(0)" class="logout">Wyloguj</a>
+        <a href="javascript:void(0)" class="logout">Logout</a>
         <script src="{% static 'js/logout.js' %}"></script>
     </div>
 
    <div class="product-table-container">
-    <h2>Lista produktów</h2>
+    <h2>Product list</h2>
       <div id="products-container"></div>
         <!-- Wiersze i kolumny tabeli -->
     </table>

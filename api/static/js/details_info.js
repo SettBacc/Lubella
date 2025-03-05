@@ -206,7 +206,7 @@ function createDeleteOrderButton() {
     const buttonsContainer = document.getElementById('buttons-container');
 
     // Przygotowanie przycisku
-    const deleteButton = createButton('delete-order-button', 'Usuń zamówienie', async () => {
+    const deleteButton = createButton('delete-order-button', 'Delete this order', async () => {
         const orderId = localStorage.getItem('orderId'); // Pobierz ID zamówienia z localStorage
         const endpoint = `${ip_address}orders/details/${orderId}/`;
 
@@ -247,7 +247,7 @@ function createEditPalletButton() {
     const palletCountField = document.getElementById('edit-pallet-count');
 
     // Dodanie przycisku do edytowania ID palety i liczby palet
-    const editPalletButton = createButton('edit-pallet-button', 'Edytuj palety', async () => {
+    const editPalletButton = createButton('edit-pallet-button', 'Edit Order', async () => {
         const newPalletId = palletIdField.value;
         const newPalletCount = palletCountField.value;
 

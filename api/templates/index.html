@@ -12,24 +12,24 @@
 </head>
 <body>
     <div class="login-container">
-        <h1>Logowanie</h1>
+        <h1>Login</h1>
         <form id="loginForm">
             <div class="form-group">
-                <label for="username">Nazwa użytkownika:</label>
-                <input type="text" id="username" name="username" placeholder="Wpisz nazwę użytkownika" required>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
             </div>
             <div class="form-group">
-                <label for="password">Hasło:</label>
-                <input type="password" id="password" name="password" placeholder="Wpisz hasło" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
-            <button type="submit">Zaloguj się</button>
+            <button type="submit">Log in</button>
         </form>
         <p id="message"></p>
 
         <div>
-        <p>Utwórz nowe konto</p>
+        <p>Create new account</p>
         <a href="{% url 'registration' %}">
-            <button>Zarejestruj się</button>
+            <button>Sign up</button>
         </a>
         </div>
     </div>

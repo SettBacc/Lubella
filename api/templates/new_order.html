@@ -18,7 +18,7 @@
 </head>
 <body>
     <div class="button-bar">
-    <button class="redirect-button" data-url="/order_list/">Powrót</button>
+    <button class="redirect-button" data-url="/order_list/">Back</button>
     </div>
 
     <div class="blue-bar">
@@ -30,32 +30,32 @@
             const company_name = localStorage.getItem("company_Name") || "Brak firmy";
 
             const userData = document.getElementById("userData");
-            userData.textContent = `Login: ${userLogin}, Typ użytkownika: ${userType}, Firma:${company_name}`;
+            userData.textContent = `Login: ${userLogin} | User type: ${userType} | Company:${company_name}`;
         </script>
-    <a href="javascript:void(0)" class="logout">Wyloguj</a>
+    <a href="javascript:void(0)" class="logout">Logout</a>
     <script src="{% static 'js/logout.js' %}"></script>
     </div>
 
-    <h1 class="title">Lista Palet</h1>
+    <h1 class="title">Pallet list</h1>
     <div class="pallet-container">
     {% for pallet_id, compositions in grouped_compositions.items %}
         <div class="pallet-card" id="pallet-{{ pallet_id }}">
-            <h3>Paleta ID: {{ pallet_id }}</h3>
-            <h3 style="text-align: right;" id="total-price-{{ pallet_id }}">Cena całkowita: 0 PLN</h3>
+            <h3>Pallet ID: {{ pallet_id }}</h3>
+            <h3 style="text-align: right;" id="total-price-{{ pallet_id }}">Total cost: 0 $</h3>
             <div class="product-list">
                 {% for comp in compositions %}
                     <div class="product-card">
                         <h3>{{ comp.product_id.category }}</h3>
-                        <p>Typ: {{ comp.product_id.type }}</p>
-                        <p>Waga: {{ comp.product_id.weight }} kg</p>
-                        <p>Cena: <span class="product-price" data-price="{{ comp.product_id.price }}">{{ comp.product_id.price }}</span> PLN</p>
-                        <p>Ilość: <span class="product-quantity" data-quantity="{{ comp.number_of_products }}">{{ comp.number_of_products }}</span></p>
+                        <p>Type: {{ comp.product_id.type }}</p>
+                        <p>Weight: {{ comp.product_id.weight }} kg</p>
+                        <p>Price: <span class="product-price" data-price="{{ comp.product_id.price }}">{{ comp.product_id.price }}</span> $</p>
+                        <p>Amount: <span class="product-quantity" data-quantity="{{ comp.number_of_products }}">{{ comp.number_of_products }}</span></p>
                     </div>
                 {% endfor %}
             </div>
             <div class="product-actions">
                 <input type="number" id="quantity-{{ pallet_id }}" min="1">
-                <button onclick="addOrderAndClearInput('{{ pallet_id }}')">Dodaj do koszyka</button>
+                <button onclick="addOrderAndClearInput('{{ pallet_id }}')">Create new Order</button>
             </div>
         </div>
     {% endfor %}
